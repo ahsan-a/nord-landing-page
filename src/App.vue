@@ -10,8 +10,7 @@
 <script>
 
 	import DateAndTime from './components/DateAndTime.vue';
-import GoogleSearchBar from './components/GoogleSearchBar.vue';
-	//import { reactive, onMounted, ref } from 'vue';
+	import GoogleSearchBar from './components/GoogleSearchBar.vue';
 
 	export default {
 		components: { DateAndTime, GoogleSearchBar },
@@ -33,25 +32,20 @@ import GoogleSearchBar from './components/GoogleSearchBar.vue';
 	$nord9: #81a1c1;
 	$nord10: #5e81ac;
 
-
-		/* width */
 	::-webkit-scrollbar {
 		width: 10px;
 	}
 
-	/* Track */
 	::-webkit-scrollbar-track {
 		background: $nord2;
 		border-radius: 10px;
 	}
-	
-	/* Handle */
+
 	::-webkit-scrollbar-thumb {
 		background: $nord8; 
 		border-radius: 10px;
 	}
 
-	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
 		background: $nord9;
 	}
