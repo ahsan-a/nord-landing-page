@@ -40,13 +40,13 @@ input[type='text'][data-v-23fee876] {
 	padding: 0.5rem 6.5rem;
 	display: block;
 	margin: -7vw auto;
-	opacity: 80%;
+	opacity: 1%;
 	transition: background-color 0.4s ease-in-out;
 	transition: opacity 0.4s ease-in-out;
 }
 input[type='text'][data-v-23fee876]:focus {
 	background-color: #4c566a;
-	opacity: 100%;
+	opacity: 1%;
 }
 ::-webkit-scrollbar {
 	width: 10px;
