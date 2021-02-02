@@ -1,22 +1,22 @@
 <template>
 	<transition name="fade">
-	<div id="wrapper">
-		<date-and-time />
-		<google-search-bar />
-	</div>
+		<div id="wrapper">
+			<weather />
+			<date-and-time />
+			<google-search-bar />
+		</div>
 	</transition>
 </template>
 
 <script>
-
 	import DateAndTime from './components/DateAndTime.vue';
 	import GoogleSearchBar from './components/GoogleSearchBar.vue';
+	import Weather from './components/Weather.vue';
 
 	export default {
-		components: { DateAndTime, GoogleSearchBar },
+		components: { DateAndTime, GoogleSearchBar, Weather },
 		setup() {},
 	};
-
 </script>
 
 <style lang="scss">
@@ -42,7 +42,7 @@
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: $nord8; 
+		background: $nord8;
 		border-radius: 10px;
 	}
 
