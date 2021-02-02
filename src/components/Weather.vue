@@ -30,25 +30,33 @@
 				},
 			});
 
+			function capitilise(string) {
+				return string.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+					letter.toUpperCase()
+				);
+			}
+
 			function updateWeather() {
 				fetch(
 					`https://api.openweathermap.org/data/2.5/weather?q=${state.weatherInput.location}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${state.weatherInput.unit}`
 				)
 					.then((res) => res.json())
 					.then((data) => {
-						console.log(state.weatherOutput);
 						Object.assign(
 							state.weatherOutput,
 							{ city: data.name },
 							{ country: data.sys.country },
 							{ temp: Math.floor(data.main.temp) },
 							{ main: data.weather[0].main },
-							{ description: data.weather[0].description },
+							{
+								description: capitilise(
+									data.weather[0].description
+								),
+							},
 							{
 								icon: require(`../assets/weatherIcons/${data.weather[0].icon}.svg`),
 							}
 						);
-						console.log(state.weatherOutput.icon);
 					})
 					.catch((err) => {
 						console.error(err);
@@ -83,7 +91,7 @@
 		background: $nord1;
 		width: 15vw;
 		height: 20vw;
-		border-radius: 1 vw;
+		border-radius: 1vw;
 		box-shadow: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.205);
 		position: absolute;
 		margin-top: -3vw;
