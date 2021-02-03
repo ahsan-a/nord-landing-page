@@ -47,3 +47,6 @@ If you would like to customise, it's as easy as changing the source code.
 
 ## Updating
 Since there isn't an updating feature yet, just pull from the master branch and recompile.
+
+## Contact
+If you need to contact me feel free to add me on discord: ahsan#4403
