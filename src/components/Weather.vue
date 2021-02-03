@@ -16,10 +16,6 @@
 		name: 'Weather',
 		setup() {
 			const state = reactive({
-				weatherInput: {
-					location: 'Widnes',
-					unit: 'metric',
-				},
 				weatherOutput: {
 					city: '',
 					country: '',
@@ -39,7 +35,7 @@
 
 			function updateWeather() {
 				fetch(
-					`https://api.openweathermap.org/data/2.5/weather?q=${state.weatherInput.location}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${state.weatherInput.unit}`
+					`https://api.openweathermap.org/data/2.5/weather?q=${process.env.VUE_APP_LOCATION}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${process.env.VUE_APP_UNIT}`
 				) //fetches the weather from the openweathermap api.
 					.then((res) => res.json())
 					.then((data) => {
