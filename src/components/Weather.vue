@@ -27,10 +27,11 @@
 					main: '',
 					description: '',
 					icon: '',
-				},
+				}, //all of the data we need.
 			});
 
 			function capitilise(string) {
+				//capitalises the first letter of every word of a sentence.
 				return string.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
 					letter.toUpperCase()
 				);
@@ -39,7 +40,7 @@
 			function updateWeather() {
 				fetch(
 					`https://api.openweathermap.org/data/2.5/weather?q=${state.weatherInput.location}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${state.weatherInput.unit}`
-				)
+				) //fetches the weather from the openweathermap api.
 					.then((res) => res.json())
 					.then((data) => {
 						Object.assign(
@@ -55,15 +56,15 @@
 							},
 							{
 								icon: require(`../assets/weatherIcons/${data.weather[0].icon}.svg`),
-							}
+							} //Writes all of the data we need to a reactive object.
 						);
 					})
 					.catch((err) => {
 						console.error(err);
 					});
 			}
-			var weatherInterval = setInterval(updateWeather, 600000);
-			updateWeather();
+			var weatherInterval = setInterval(updateWeather, 300000);
+			updateWeather(); //updates every 5 minutes
 
 			return {
 				state,
@@ -95,41 +96,44 @@
 		box-shadow: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.205);
 		position: absolute;
 		margin-top: -3vw;
+		margin-left: 1vw;
 
 		.icon {
 			img {
 				filter: invert(73%) sepia(18%) saturate(561%) hue-rotate(147deg)
 					brightness(95%) contrast(98%);
-				width: 50%;
+				width: 40%;
+				margin-left: 0.2vw;
+				margin-top: 0.2vw;
 			}
 		}
 
 		.main {
-			margin-top: -1.7vw;
-			margin-left: 5%;
+			margin-top: -4vw;
+			margin-right: 1.3vw;
 			font-size: 2vw;
-			text-align: left;
+			text-align: right;
 			color: $nord8;
 		}
 
 		.temperature {
 			float: right;
 			font-size: 5vw;
-			margin-top: -2.8vw;
-			margin-right: 1.5vw;
+			margin-top: -0.4vw;
+			margin-right: 2vw;
 			color: $nord8;
 			font-weight: 300;
 		}
 
 		.description {
-			margin-top: 4.8vw;
+			margin-top: 8vw;
 			font-size: 1.6vw;
 			margin-left: 1vw;
 			color: $nord8;
 		}
 
 		.location {
-			margin-top: -0.2vw;
+			margin-top: 0vw;
 			color: $nord8;
 			font-size: 0.8vw;
 			text-align: center;
