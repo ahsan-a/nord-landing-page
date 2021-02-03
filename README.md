@@ -1,5 +1,10 @@
 # Nord Landing Page
 
+## Demos   
+
+![New Tab page](github-assets/1.png)    
+![New Tab page with search suggestions](github-assets/2.png)     
+
 ## What is this?
 
 This is a simple new tab page using the [nord colour pallete](https://www.nordtheme.com/), an arctic, north-bluish color palette which is clean, sleek and readable. This new tab page aims to be simple and minimalist, but still functional. If you find a bug or would like a new feature make sure to create an issue. If you add any new features, feel free to send a pull request over :)   
