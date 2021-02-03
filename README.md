@@ -25,7 +25,7 @@ Configuration options inside of the UI may come at a later date, right now i'm w
 
 1. Clone this repository, either by downloading it as a .zip file or using [git](https://git-scm.com/) and running
    `git clone https://github.com/ahsan-a/nord-landing-page.git`.   
-2. Download and install [node.js](https://nodejs.org/en/). After, open the folder in your terminal and run `npm install` to install all required node modules.   
+2. Download and install [node.js](https://nodejs.org/en/). After, open the folder in your terminal inside of the project's folder and run `npm install` to install all required node modules. Keep this folder open for now.   
 3. Go to [Openweathermap](https://openweathermap.org/), create a new account and generate an API key.   
 4. Create a new file called `.env` and add the following values:   
     - `VUE_APP_WEATHERAPIKEY`
