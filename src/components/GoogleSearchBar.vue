@@ -1,24 +1,27 @@
 <template>
 	<div class="searchWrapper">
-		<form
-			id="googleSearch"
-			method="get"
-			action="https://www.google.co.uk/search"
-		>
+		<form id="googleSearch" onsubmit="return false">
 			<input
 				id="googleSearchBar"
 				type="text"
-				name="q"
 				autocomplete="off"
 				placeholder="Search here..."
 				v-model="state.searchText"
 				@input="retrieveQueries"
 				:class="{ enabled: state.enabled }"
+				@keydown.down="inputDown"
+				@keydown.up="inputUp"
+				@keydown.enter="enterInput"
 			/>
 		</form>
 
 		<ul class="searchSuggestions">
-			<li v-for="query in state.queries" :key="query.query">
+			<li
+				ref="arrowKeys"
+				v-for="(query, index) in state.queries"
+				:key="query.query"
+				:class="{ focused: index == state.focus }"
+			>
 				<a :href="query.link">{{ query.query }}</a>
 			</li>
 		</ul>
@@ -33,6 +36,7 @@
 			const state = reactive({
 				searchText: '',
 				enabled: false,
+				focus: null,
 				queries: {},
 			});
 
@@ -41,6 +45,7 @@
 			};
 
 			function retrieveQueries() {
+				state.focus = null;
 				fetch(
 					`https://corsanywhere.herokuapp.com/http://suggestqueries.google.com/complete/search?client=chrome&q=${state.searchText}`
 				)
@@ -63,8 +68,6 @@
 										: 'https://www.google.co.uk/search?q=' +
 										  encodeURI(data[1][i]),
 							};
-
-							console.log(results[i]['link']);
 						}
 
 						state.enabled = !!state.searchText.replace(/\s/g, '')
@@ -75,15 +78,68 @@
 						console.error(err);
 					});
 			}
+
+			function changeTextbox() {
+				state.searchText = state.queries[state.focus].query;
+			}
+
+			function inputDown() {
+				if (!state.searchText.replace(/\s/g, '').length) {
+					state.focus = null;
+					return;
+				} else if (state.focus == null) {
+					state.focus = 0;
+					changeTextbox();
+				} else {
+					if (state.focus < Object.keys(state.queries).length - 1) {
+						state.focus++;
+					}
+					changeTextbox();
+				}
+			}
+
+			function inputUp() {
+				if (!state.searchText.replace(/\s/g, '').length) {
+					state.focus = null;
+					return;
+				} else if (state.focus == null) {
+					state.focus = 0;
+					changeTextbox();
+				} else {
+					if (state.focus > 0) {
+						state.focus--;
+					}
+					changeTextbox();
+				}
+			}
+
+			function enterInput() {
+				if (state.focus == null) {
+					if (state.searchText.replace(/\s/g, '').length) {
+						window.open(
+							`https://www.google.co.uk/search?q=${state.searchText}`,
+							'_self'
+						);
+					} else {
+						return;
+					}
+				} else {
+					window.open(state.queries[state.focus].link, '_self');
+				}
+			}
+
 			return {
 				state,
 				retrieveQueries,
+				inputDown,
+				inputUp,
+				enterInput,
 			};
 		},
 	};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" +>
 	$nord0: #2e3440;
 	$nord1: #3b4252;
 	$nord2: #434c5e;
@@ -134,7 +190,7 @@
 
 	.enabled {
 		border-radius: 2vw 2vw 0 0 !important;
-		background-color: $nord3 !important;
+		background-color: $nord3;
 		box-shadow: 0 0 0 !important;
 	}
 
@@ -146,7 +202,7 @@
 			list-style-type: none;
 			font-family: Quicksand;
 			color: #fff;
-			margin-left: 24.8vw;
+			margin-left: 24.766vw;
 			margin-top: 7vw;
 			font-size: 2vw;
 			background-color: $nord3;
@@ -159,16 +215,22 @@
 				margin-right: 2vw;
 				padding: 0.1vw 0;
 
-				background-color: $nord3;
-				&:hover {
-					background-color: $nord2;
+				&:not(.focused) {
+					background-color: $nord3;
+					&:hover {
+						background-color: $nord2;
+					}
 				}
 			}
 		}
 	}
 
 	a {
-		text-decoration: none !important;
-		color: white !important;
+		text-decoration: none;
+		color: white;
+	}
+
+	.focused {
+		background-color: $nord2;
 	}
 </style>

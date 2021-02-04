@@ -38,3 +38,7 @@ VUE_APP_UNIT=metric
 7. Run `npm run build` to build your project. Your new build should be stored inside of `/dist/index.html`. Set this as your new tab page in your browser settings or using an extension such as [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna/related).
 
 If you would like to customise, it's as easy as changing the source code.
+
+## Changelog
+
+    - Added arrow key functionality mirroring google's arrow key functionality (4/2/2021)

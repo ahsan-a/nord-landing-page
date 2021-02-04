@@ -1,40 +1,22 @@
-[
-	"stackoveflow",
-	[
-		"stack overflow",
-		"https://stackoverflow.com/",
-		"stack overflow error",
-		"stack overflow jobs",
-		"stack overflow glassdoor",
-		"stack overflow exception",
-		"stack overflow developer survey",
-		"stack overflow careers"
-	],
-	["", "Stack Overflow", "", "", "", "", "", ""],
-	[],
-	{
-		"google:clientdata": { "bpc": false, "phi": 0, "tlw": false },
-		"google:suggestrelevance": [602, 601, 600, 554, 553, 552, 551, 550],
-		"google:suggestsubtypes": [
-			[433, 10],
-			[],
-			[433, 10],
-			[433, 10],
-			[10],
-			[10],
-			[10],
-			[10]
-		],
-		"google:suggesttype": [
-			"QUERY",
-			"NAVIGATION",
-			"QUERY",
-			"QUERY",
-			"QUERY",
-			"QUERY",
-			"QUERY",
-			"QUERY"
-		],
-		"google:verbatimrelevance": 1300
+{
+	"0": {
+		"query": "stackoverflow jobs",
+		"type": "QUERY",
+		"link": "https://www.google.co.uk/search?q=stackoverflow%20jobs"
+	},
+	"1": {
+		"query": "https://stackoverflow.com/",
+		"type": "NAVIGATION",
+		"link": "https://stackoverflow.com/"
+	},
+	"2": {
+		"query": "stackoverflowerror",
+		"type": "QUERY",
+		"link": "https://www.google.co.uk/search?q=stackoverflowerror"
+	},
+	"3": {
+		"query": "stackoverflow survey",
+		"type": "QUERY",
+		"link": "https://www.google.co.uk/search?q=stackoverflow%20survey"
 	}
-]
+}
