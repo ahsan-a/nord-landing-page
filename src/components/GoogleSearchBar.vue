@@ -10,8 +10,9 @@
 				@input="retrieveQueries"
 				:class="{ enabled: state.enabled }"
 				@keydown.down="inputDown"
-				@keydown.up="inputUp"
+				@keydown.up.prevent="inputUp"
 				@keydown.enter="enterInput"
+				ref="input"
 			/>
 		</form>
 
@@ -30,6 +31,7 @@
 
 <script>
 	import { reactive } from 'vue';
+
 	export default {
 		name: 'GoogleSearch',
 		setup() {
@@ -55,7 +57,7 @@
 						var results = {};
 						for (
 							let i = 0;
-							data[1].length < 4 ? i < data[1].length : i < 4;
+							data[1].length < 6 ? i < data[1].length : i < 6;
 							i++
 						) {
 							results[i] = {
@@ -90,10 +92,17 @@
 				} else if (state.focus == null) {
 					state.focus = 0;
 					changeTextbox();
-				} else {
-					if (state.focus < Object.keys(state.queries).length - 1) {
-						state.focus++;
-					}
+				} else if (
+					state.focus <
+					Object.keys(state.queries).length - 1
+				) {
+					state.focus++;
+					changeTextbox();
+				} else if (
+					state.focus ==
+					Object.keys(state.queries).length - 1
+				) {
+					state.focus = 0;
 					changeTextbox();
 				}
 			}
@@ -105,10 +114,11 @@
 				} else if (state.focus == null) {
 					state.focus = 0;
 					changeTextbox();
-				} else {
-					if (state.focus > 0) {
-						state.focus--;
-					}
+				} else if (state.focus > 0) {
+					state.focus--;
+					changeTextbox();
+				} else if (state.focus == 0) {
+					state.focus = Object.keys(state.queries).length - 1;
 					changeTextbox();
 				}
 			}
@@ -210,8 +220,8 @@
 			box-sizing: border-box;
 			border-radius: 0 0 2vw 2vw;
 			li {
-				transition: background-color 0.4s ease-in-out;
-				-webkit-transition: background-color 0.2s ease-in-out;
+				transition: background-color 0.1s ease-in-out;
+				-webkit-transition: background-color 0.1s ease-in-out;
 				margin-right: 2vw;
 				padding: 0.1vw 0;
 

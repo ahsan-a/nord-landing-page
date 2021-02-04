@@ -42,10 +42,12 @@ VUE_APP_UNIT=metric
 6. Go back into your terminal and run `npm run serve` to see if everything is working correctly. If everything is working correctly your weather and your location should appear in the box on the top left.
 7. Run `npm run build` to build your project. Your new build should be stored inside of `/dist/index.html`. Set this as your new tab page in your browser settings or using an extension such as [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna/related).
 
-If you would like to customise, it's as easy as changing the source code.    
+If you would like to customise, it's as easy as changing the source code.
 
 ## Changelog
-   - Added arrow key functionality on google search bar, similar to functionality on actual google search bar (4/2/2021)
+
+-   Added arrow key functionality on google search bar, similar to functionality on actual google search bar (4/2/2021 2:30 GMT)
+-   Added ability to hold down up/down arrow and prevented default behaviour on google searh box (4/2/2021, 17:38 GMT)
 
 ## Updating
 
