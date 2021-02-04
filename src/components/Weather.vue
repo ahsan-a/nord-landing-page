@@ -1,6 +1,8 @@
 <template>
 	<div id="weather">
-		<div class="icon"><img :src="state.weatherOutput.icon" /></div>
+		<div class="icon">
+			<img :src="state.weatherOutput.icon" alt:"image to show weather"/>
+		</div>
 		<h2 class="main">{{ state.weatherOutput.main }}</h2>
 		<h2 class="temperature">{{ state.weatherOutput.temp }}°</h2>
 		<p class="description">{{ state.weatherOutput.description }}</p>
