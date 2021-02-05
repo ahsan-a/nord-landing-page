@@ -57,7 +57,7 @@
 						var results = {};
 						for (
 							let i = 0;
-							data[1].length < 6 ? i < data[1].length : i < 6;
+							data[1].length < 4 ? i < data[1].length : i < 4;
 							i++
 						) {
 							results[i] = {
@@ -161,12 +161,18 @@
 	$nord8: #88c0d0;
 	$nord9: #81a1c1;
 	$nord10: #5e81ac;
+	$nord11: #bf616a;
+	$nord12: #d08770;
+	$nord13: #ebcb8b;
+	$nord14: #a3be8c;
+	$nord15: #b48ead;
 	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 	input[type='text'] {
+		position: absolute;
 		width: 50%;
 		box-sizing: border-box;
-		border-radius: 10vw;
+		border-radius: 3rem;
 		font-size: 3rem;
 		font-family: Quicksand, sans-serif;
 		color: $nord6;
@@ -175,12 +181,15 @@
 		box-shadow: none;
 		background-color: $nord2;
 		background-image: url('../assets/google-icon.svg');
+
 		background-position: 2rem;
 		background-repeat: no-repeat;
 		background-size: 3rem;
 		padding: 0.5rem 3rem 0.5rem 6.5rem;
-		display: block;
-		margin: -7vw auto;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, 0%);
+		margin-top: -5rem;
 		opacity: 0.8;
 		-webkit-transition: background-color 0.4s ease-in-out;
 		transition: background-color 0.4s ease-in-out;
@@ -199,37 +208,42 @@
 	}
 
 	.enabled {
-		border-radius: 2vw 2vw 0 0 !important;
+		border-radius: 2.4rem 2.4rem 0 0 !important;
 		background-color: $nord3;
 		box-shadow: 0 0 0 !important;
 	}
 
 	.searchWrapper {
 		position: relative;
+		margin-top: 100px;
+	}
+	.searchSuggestions {
+		position: absolute;
+		text-align: left;
+		list-style-type: none;
+		font-family: Quicksand;
+		color: #fff;
+		font-size: 2vw;
+		background-color: $nord3;
+		width: 50%;
+		box-sizing: border-box;
+		border-radius: 0 0 2.4rem 2.4rem;
+		margin-top: -4px;
 
-		.searchSuggestions {
-			text-align: left;
-			list-style-type: none;
-			font-family: Quicksand;
-			color: #fff;
-			margin-left: 24.766vw;
-			margin-top: 7vw;
-			font-size: 2vw;
-			background-color: $nord3;
-			width: 50%;
-			box-sizing: border-box;
-			border-radius: 0 0 2vw 2vw;
-			li {
-				transition: background-color 0.1s ease-in-out;
-				-webkit-transition: background-color 0.1s ease-in-out;
-				margin-right: 2vw;
-				padding: 0.1vw 0;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, 0%);
+		li {
+			transition: background-color 0.1s ease-in-out;
+			-webkit-transition: background-color 0.1s ease-in-out;
+			margin-right: 4vw;
+			margin-bottom: 0.4vw;
+			padding: 0.1vw;
 
-				&:not(.focused) {
-					background-color: $nord3;
-					&:hover {
-						background-color: $nord2;
-					}
+			&:not(.focused) {
+				background-color: $nord3;
+				&:hover {
+					background-color: $nord2;
 				}
 			}
 		}

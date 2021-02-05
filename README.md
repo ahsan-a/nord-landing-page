@@ -21,7 +21,7 @@ This is a simple new tab page using the [nord colour palette](https://www.nordth
 
 ## Installation
 
-Configuration options inside of the UI may come at a later date, right now i'm working on adding features. Currently, configuring this means cloning this repository, editing variables and building, but this is very simple.
+Configuration options inside of the UI will come soon. Currently, the only way to configure is to repository, editing variables and building, but this is very simple.
 
 1. Clone this repository, either by downloading it as a .zip file or using [git](https://git-scm.com/) and running
    `git clone https://github.com/ahsan-a/nord-landing-page.git`.
@@ -46,6 +46,7 @@ If you would like to customise, it's as easy as changing the source code.
 
 ## Changelog
 
+-   Fixed search bar suggestions showing split from search bar, and lay down foundation for options UI (5/2/2021, 20:16 GMT)
 -   Added arrow key functionality on google search bar, similar to functionality on actual google search bar (4/2/2021 2:30 GMT)
 -   Added ability to hold down up/down arrow and prevented default behaviour on google searh box (4/2/2021, 17:38 GMT)
 

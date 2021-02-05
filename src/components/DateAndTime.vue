@@ -92,6 +92,11 @@
 	$nord8: #88c0d0;
 	$nord9: #81a1c1;
 	$nord10: #5e81ac;
+	$nord11: #bf616a;
+	$nord12: #d08770;
+	$nord13: #ebcb8b;
+	$nord14: #a3be8c;
+	$nord15: #b48ead;
 	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 

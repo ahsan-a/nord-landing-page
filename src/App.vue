@@ -1,20 +1,20 @@
 <template>
-	<transition name="fade">
-		<div id="wrapper">
-			<weather />
-			<date-and-time />
-			<google-search-bar />
-		</div>
-	</transition>
+	<div id="wrapper" class="animate__animated animate__fadeIn">
+		<weather />
+		<date-and-time />
+		<user-settings />
+		<google-search-bar />
+	</div>
 </template>
 
 <script>
 	import DateAndTime from './components/DateAndTime.vue';
 	import GoogleSearchBar from './components/GoogleSearchBar.vue';
+	import UserSettings from './components/UserSettings.vue';
 	import Weather from './components/Weather.vue';
 
 	export default {
-		components: { DateAndTime, GoogleSearchBar, Weather },
+		components: { DateAndTime, GoogleSearchBar, Weather, UserSettings },
 		setup() {},
 	};
 </script>
@@ -31,6 +31,12 @@
 	$nord8: #88c0d0;
 	$nord9: #81a1c1;
 	$nord10: #5e81ac;
+	$nord11: #bf616a;
+	$nord12: #d08770;
+	$nord13: #ebcb8b;
+	$nord14: #a3be8c;
+	$nord15: #b48ead;
+	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 	::-webkit-scrollbar {
 		width: 10px;
@@ -52,5 +58,14 @@
 
 	body {
 		background-color: $nord0;
+		position: relative;
+	}
+
+	google-search-bar {
+		margin-top: -10vh;
+	}
+
+	user-settings {
+		position: fixed;
 	}
 </style>
