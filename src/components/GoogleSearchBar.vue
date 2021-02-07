@@ -67,8 +67,10 @@
 					JSON.stringify(googleSearchBar)
 				);
 			}
-			if (localStorage.getItem('GoogleSearchBar') == null)
+			if (localStorage.getItem('GoogleSearchBar') == null) {
 				setDefaultStyles(); // sets styles to default if they aren't in localstorage
+				location.reload();
+			}
 
 			function updateStyles() {
 				if (
