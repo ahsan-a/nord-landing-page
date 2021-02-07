@@ -1,19 +1,67 @@
 <template>
-	<div id="weather">
+	<div
+		id="weather"
+		:style="{ backgroundColor: state.config.backgroundColour }"
+	>
 		<div class="icon">
-			<img :src="state.weatherOutput.icon" alt="image to show weather" />
+			<img
+				:src="state.weatherOutput.icon"
+				alt="image to show weather"
+				:style="{
+					filter: toFilter(state.config.imageColour),
+				}"
+			/>
 		</div>
-		<h2 class="main">{{ state.weatherOutput.main }}</h2>
-		<h2 class="temperature">{{ state.weatherOutput.temp }}°</h2>
-		<p class="description">{{ state.weatherOutput.description }}</p>
-		<p class="location">
+		<h2
+			class="main"
+			:style="{
+				color: state.config.titleColour,
+				fontFamily: state.config.font,
+			}"
+			>{{ state.weatherOutput.main }}</h2
+		>
+		<h2
+			class="temperature"
+			:style="{
+				color: state.config.tempColour,
+				fontFamily: state.config.font,
+			}"
+			>{{ state.weatherOutput.temp }}°</h2
+		>
+		<p
+			class="description"
+			:style="{
+				color: state.config.descColour,
+				fontFamily: state.config.font,
+			}"
+			>{{ state.weatherOutput.description }}</p
+		>
+		<p
+			class="location"
+			:style="{
+				color: state.config.locationColour,
+				fontFamily: state.config.font,
+			}"
+		>
 			{{ state.weatherOutput.city }}, {{ state.weatherOutput.country }}
 		</p>
 	</div>
 </template>
 
 <script>
+	const defaultProperties = {
+		backgroundColour: '#3b4252',
+		imageColour: '#88c0d0',
+		titleColour: '#88c0d0',
+		tempColour: '#88c0d0',
+		unit: 'metric',
+		descColour: '#88c0d0',
+		location: 'London',
+		locationColour: '#88c0d0',
+		font: 'Quicksand',
+	};
 	import { reactive } from 'vue';
+	import { hexToCSSFilter } from 'hex-to-css-filter';
 	export default {
 		name: 'Weather',
 		setup() {
@@ -26,7 +74,36 @@
 					description: '',
 					icon: '',
 				}, //all of the data we need.
+				config: JSON.parse(localStorage.getItem('Weather')),
 			});
+
+			function setDefaultStyles() {
+				var weather = {};
+				const defaultPropertiesArray = Object.entries(
+					defaultProperties
+				);
+				for (const [type, property] of defaultPropertiesArray) {
+					weather[type] = property;
+				}
+				localStorage.setItem('Weather', JSON.stringify(weather));
+			}
+			if (localStorage.getItem('Weather') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
+
+			function toFilter(hex) {
+				var output = hexToCSSFilter(hex);
+				return output['filter'].replace(/;/g, '');
+			}
+
+			function updateStyles() {
+				if (
+					JSON.stringify(state.config) !==
+					localStorage.getItem('Weather')
+				) {
+					state.config = JSON.parse(localStorage.getItem('Weather'));
+				}
+			}
+			setInterval(updateStyles, 1000);
+			updateStyles(); // updates the styles from local storage
 
 			function capitilise(string) {
 				//capitalises the first letter of every word of a sentence.
@@ -37,7 +114,11 @@
 
 			function updateWeather() {
 				fetch(
-					`https://api.openweathermap.org/data/2.5/weather?q=${process.env.VUE_APP_LOCATION}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${process.env.VUE_APP_UNIT}`
+					`https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(
+						state.config.location
+					)}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${
+						state.config.unit
+					}`
 				) //fetches the weather from the openweathermap api.
 					.then((res) => res.json())
 					.then((data) => {
@@ -61,11 +142,12 @@
 						console.error(err);
 					});
 			}
-			var weatherInterval = setInterval(updateWeather, 300000);
+			setInterval(updateWeather, 10000);
 			updateWeather(); //updates every 5 minutes
 
 			return {
 				state,
+				toFilter,
 			};
 		},
 	};
@@ -91,56 +173,65 @@
 	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 	#weather {
-		font-family: Quicksand, sans-serif;
-		background: $nord1;
-		width: 15vw;
-		height: 20vw;
-		border-radius: 1vw;
+		width: 300px;
+		height: 400px;
+		border-radius: 20px;
 		box-shadow: 0.2rem 0.2rem 10px rgba(0, 0, 0, 0.205);
 		position: absolute;
 		margin-top: -3vw;
 		margin-left: 1vw;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: flex-start;
 
+		@media (max-width: 1150px) {
+			opacity: 0;
+		}
 		.icon {
 			img {
-				filter: invert(73%) sepia(18%) saturate(561%) hue-rotate(147deg)
-					brightness(95%) contrast(98%);
-				width: 40%;
-				margin-left: 0.2vw;
-				margin-top: 0.2vw;
+				width: 100px;
+				margin-left: 10px;
+				margin-top: 50px;
+				order: 0;
 			}
 		}
 
 		.main {
-			margin-top: -4vw;
-			margin-right: 1.3vw;
-			font-size: 2vw;
+			margin-top: -135px;
+			margin-right: -110px;
+			font-size: 40px;
 			text-align: right;
-			color: $nord8;
+			order: 1;
+			text-align: right;
 		}
 
 		.temperature {
-			float: right;
-			font-size: 5vw;
-			margin-top: -0.4vw;
-			margin-right: 2vw;
-			color: $nord8;
+			font-size: 100px;
+			margin-top: 0px;
+			margin-right: -120px;
 			font-weight: 300;
+			order: 2;
+			text-align: right;
 		}
 
 		.description {
-			margin-top: 8vw;
-			font-size: 1.6vw;
-			margin-left: 1vw;
-			color: $nord8;
+			margin-top: 230px;
+			font-size: 35px;
+			margin-left: -110px;
+			order: 3;
+			text-align: left;
+			word-wrap: break-word;
+			max-width: 200px;
 		}
 
 		.location {
-			margin-top: 0vw;
-			color: $nord8;
-			font-size: 0.8vw;
+			margin-top: 370px;
+			font-size: 15px;
 			text-align: center;
 			float: center;
+			order: 4;
+			margin-left: -275px;
 		}
 	}
 </style>

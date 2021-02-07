@@ -12,10 +12,49 @@
 	import GoogleSearchBar from './components/GoogleSearchBar.vue';
 	import UserSettings from './components/UserSettings.vue';
 	import Weather from './components/Weather.vue';
+	import { reactive } from 'vue';
+
+	const defaultProperties = {
+		backgroundColour: '#2e3440',
+	};
 
 	export default {
-		components: { DateAndTime, GoogleSearchBar, Weather, UserSettings },
-		setup() {},
+		components: {
+			DateAndTime,
+			GoogleSearchBar,
+			Weather,
+			UserSettings,
+		},
+		setup() {
+			const state = reactive({
+				config: JSON.parse(localStorage.getItem('Main')),
+			});
+
+			function setDefaultStyles() {
+				var main = {};
+				const defaultPropertiesArray = Object.entries(
+					defaultProperties
+				);
+				for (const [type, property] of defaultPropertiesArray) {
+					main[type] = property;
+				}
+				localStorage.setItem('Main', JSON.stringify(main));
+			}
+			if (localStorage.getItem('Main') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
+
+			function updateStyles() {
+				if (
+					JSON.stringify(state.config) !==
+					localStorage.getItem('Main')
+				) {
+					state.config = JSON.parse(localStorage.getItem('Main'));
+				}
+				document.body.style.backgroundColor =
+					state.config.backgroundColour;
+			}
+			setInterval(updateStyles, 1000);
+			updateStyles(); // updates the styles from local storage
+		},
 	};
 </script>
 
@@ -57,7 +96,6 @@
 	}
 
 	body {
-		background-color: $nord0;
 		position: relative;
 	}
 

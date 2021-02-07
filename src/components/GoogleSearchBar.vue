@@ -13,6 +13,10 @@
 				@keydown.up.prevent="inputUp"
 				@keydown.enter="enterInput"
 				ref="input"
+				:style="{
+					backgroundColor: state.config.barBg,
+					fontFamily: state.config.barFont,
+				}"
 			/>
 		</form>
 
@@ -32,19 +36,52 @@
 <script>
 	import { reactive } from 'vue';
 
+	const defaultProperties = {
+		barBg: '#434c5e',
+		barFont: 'Quicksand',
+	};
 	export default {
 		name: 'GoogleSearch',
 		setup() {
+			window.onload = () => {
+				document.getElementById('googleSearchBar').focus();
+			};
 			const state = reactive({
 				searchText: '',
 				enabled: false,
 				focus: null,
 				queries: {},
+				config: JSON.parse(localStorage.getItem('GoogleSearchBar')),
 			});
 
-			window.onload = () => {
-				document.getElementById('googleSearchBar').focus();
-			};
+			function setDefaultStyles() {
+				var googleSearchBar = {};
+				const defaultPropertiesArray = Object.entries(
+					defaultProperties
+				);
+				for (const [type, property] of defaultPropertiesArray) {
+					googleSearchBar[type] = property;
+				}
+				localStorage.setItem(
+					'GoogleSearchBar',
+					JSON.stringify(googleSearchBar)
+				);
+			}
+			if (localStorage.getItem('GoogleSearchBar') == null)
+				setDefaultStyles(); // sets styles to default if they aren't in localstorage
+
+			function updateStyles() {
+				if (
+					JSON.stringify(state.config) !==
+					localStorage.getItem('GoogleSearchBar')
+				) {
+					state.config = JSON.parse(
+						localStorage.getItem('GoogleSearchBar')
+					);
+				}
+			}
+			setInterval(updateStyles, 1000);
+			updateStyles(); // updates the styles from local storage
 
 			function retrieveQueries() {
 				state.focus = null;
@@ -149,7 +186,7 @@
 	};
 </script>
 
-<style lang="scss" +>
+<style lang="scss" scoped>
 	$nord0: #2e3440;
 	$nord1: #3b4252;
 	$nord2: #434c5e;
@@ -179,7 +216,6 @@
 		outline: none;
 		border: none;
 		box-shadow: none;
-		background-color: $nord2;
 		background-image: url('../assets/google-icon.svg');
 
 		background-position: 2rem;
@@ -189,7 +225,6 @@
 		left: 50%;
 		margin-right: -50%;
 		transform: translate(-50%, 0%);
-		margin-top: -5rem;
 		opacity: 0.8;
 		-webkit-transition: background-color 0.4s ease-in-out;
 		transition: background-color 0.4s ease-in-out;
@@ -215,7 +250,7 @@
 
 	.searchWrapper {
 		position: relative;
-		margin-top: 100px;
+		margin-top: -6vw;
 	}
 	.searchSuggestions {
 		position: absolute;
@@ -228,7 +263,7 @@
 		width: 50%;
 		box-sizing: border-box;
 		border-radius: 0 0 2.4rem 2.4rem;
-		margin-top: -4px;
+		margin-top: 75px;
 
 		left: 50%;
 		margin-right: -50%;

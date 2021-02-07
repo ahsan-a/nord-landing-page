@@ -15,26 +15,217 @@
 		class="userSettings animate__animated animate__fadeInDown animate__faster"
 		v-if="preferencesOn"
 	>
-		<button class="closeSettings" @click="toggleClicked">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-				>
-					<path
-						d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z"
-					/>
-				</svg>
-			</svg>
-		</button>
-		<h1 class="progress">Currently in progress, come back later!</h1>
+		<ul class="settingsBar">
+			<li><h1 class="settingsBarTitle">Settings</h1></li>
+			<li>
+				<button class="closeSettings" @click="toggleClicked">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z"
+							/>
+						</svg>
+					</svg>
+				</button>
+			</li>
+		</ul>
+		<div class="userSettingsFrame">
+			<div class="general">
+				<h1 class="settingsTitle">General</h1>
+				<ul class="settingsModule">
+					<li>
+						<p>Background Colour:</p>
+						<input
+							type="color"
+							v-model="state.config.Main.backgroundColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Settings Wheel Colour:</p>
+						<input
+							type="color"
+							v-model="state.config.DateAndTime.dateColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+				</ul>
+			</div>
+			<div class="dateAndTime">
+				<h1 class="settingsTitle">Date and Time</h1>
+
+				<ul class="settingsModule">
+					<li>
+						<p>Date Colour:</p>
+						<input
+							type="color"
+							v-model="state.config.DateAndTime.dateColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Date Font:</p>
+						<input
+							type="text"
+							v-model="state.config.DateAndTime.dateFont"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+					<li>
+						<p>Time Colour:</p>
+						<input
+							type="color"
+							v-model="state.config.DateAndTime.timeColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Time Font:</p>
+						<input
+							type="text"
+							v-model="state.config.DateAndTime.timeFont"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+					<li>
+						<p>Time Seperator Colour:</p>
+						<input
+							type="color"
+							v-model="state.config.DateAndTime.timeSeperator"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+				</ul>
+				<br />
+			</div>
+			<div class="weather">
+				<h1 class="settingsTitle">Weather</h1>
+				<ul class="settingsModule">
+					<li>
+						<p>Background Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.backgroundColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Weather Icon Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.imageColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Weather Title Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.titleColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Temperature Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.tempColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Metric/Imperial</p>
+						<input
+							type="text"
+							v-model="state.config.Weather.unit"
+							@change="updateLocalConfig"
+							class="textInput"
+							placeholder="may need refresh"
+						/>
+					</li>
+					<li>
+						<p>Weather Description Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.descColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Location</p>
+						<input
+							type="text"
+							v-model="state.config.Weather.location"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+					<li>
+						<p>Location Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Weather.locationColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Font</p>
+						<input
+							type="text"
+							v-model="state.config.Weather.font"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+				</ul>
+			</div>
+			<div class="googleSearchBar">
+				<h1 class="settingsTitle">Google Search Bar Settings</h1>
+				<ul class="settingsModule">
+					<li>
+						<p>Search Bar Background</p>
+						<input
+							type="color"
+							v-model="state.config.GoogleSearchBar.barBg"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Search Bar Font</p>
+						<input
+							type="text"
+							v-model="state.config.GoogleSearchBar.barFont"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -43,16 +234,38 @@
 	export default {
 		name: 'UserSettings',
 		setup() {
-			const state = reactive({});
 			let preferencesOn = ref(false);
+			const state = reactive({
+				config: {
+					DateAndTime: JSON.parse(
+						localStorage.getItem('DateAndTime')
+					),
+					Weather: JSON.parse(localStorage.getItem('Weather')),
+					Main: JSON.parse(localStorage.getItem('Main')),
+					GoogleSearchBar: JSON.parse(
+						localStorage.getItem('GoogleSearchBar')
+					),
+				},
+			});
 
 			function toggleClicked() {
 				preferencesOn.value = !preferencesOn.value;
 			}
 
+			function updateLocalConfig() {
+				var keys = Object.keys(state.config);
+				keys.forEach((element) => {
+					localStorage.setItem(
+						element,
+						JSON.stringify(state.config[element])
+					);
+				});
+			}
 			return {
+				state,
 				toggleClicked,
 				preferencesOn,
+				updateLocalConfig,
 			};
 		},
 	};
@@ -87,7 +300,7 @@
 		margin-right: 1vw;
 		vertical-align: bottom;
 		z-index: 10;
-		margin-top: 33vh;
+		margin-top: -29vw;
 
 		svg {
 			width: 2.5vw;
@@ -119,47 +332,103 @@
 		margin-left: -40vw; /* Negative half of width. */
 		border-radius: 2vw;
 		box-shadow: 0.2rem 0.2rem 20px rgba(0, 0, 0, 0.205);
-		backdrop-filter: blur(6px);
+		@media (min-width: 1400px) {
+			background-image: url('../assets/nord-colours.svg');
+			background-repeat: no-repeat;
+			background-position: right;
+		}
 
-		.closeSettings {
-			border: none;
-			padding: 0;
-			outline: none;
-			cursor: pointer;
-			float: right;
-			background: none;
-			width: 1.5vw;
-			height: 1.5vw;
-			border-radius: 50%;
-			margin-right: 0.9vw;
-			margin-top: 0.9vw;
-			svg {
-				width: 70%;
-				height: 70%;
-				fill: $nord5;
-				background-color: $nord11;
+		ul.settingsBar {
+			display: inline;
+			list-style-type: none;
+			.settingsBarTitle {
+				font-family: Quicksand;
+				color: $nord5;
+				font-size: 3rem;
+				padding-left: 2vw;
+				margin-top: 0%;
+				text-decoration: underline;
+			}
+
+			.closeSettings {
+				border: none;
+				padding: 0;
+				outline: none;
+				cursor: pointer;
+				float: right;
+				background: none;
+				width: 1.5vw;
+				height: 1.5vw;
 				border-radius: 50%;
-				padding: 0.3vw;
-				transition: transform 0.2s ease-in-out;
-				-webkit-transition: transform 0.2s ease-in-out;
-				transform: fill 0.2s ease-in-out;
-				-webkit-transform: fill 0.2s ease-in-out;
-				transform: background-color 0.2s ease-in-out;
-				-webkit-transform: background-color 0.2s ease-in-out;
+				margin-right: 0.9vw;
+				margin-top: -5.5%;
+				svg {
+					width: 70%;
+					height: 70%;
+					fill: $nord5;
+					background-color: $nord11;
+					border-radius: 50%;
+					padding: 0.3vw;
+					transition: transform 0.2s ease-in-out;
+					-webkit-transition: transform 0.2s ease-in-out;
+					transform: fill 0.2s ease-in-out;
+					-webkit-transform: fill 0.2s ease-in-out;
+					transform: background-color 0.2s ease-in-out;
+					-webkit-transform: background-color 0.2s ease-in-out;
 
-				&:hover {
-					transform: rotate(90deg);
-					fill: $nord4;
-					background-color: $nord12;
+					&:hover {
+						transform: rotate(90deg);
+						fill: $nord4;
+						background-color: $nord12;
+					}
 				}
 			}
 		}
+
+		.userSettingsFrame {
+			width: 97%;
+			height: 82%;
+			overflow-x: scroll;
+			overflow-x: hidden;
+			margin-left: 3%;
+			margin-top: -1%;
+		}
 	}
 
-	.progress {
+	ul.settingsModule {
+		list-style-type: none;
 		font-family: Quicksand;
 		color: $nord5;
-		text-align: center;
-		font-size: 5vw;
+		font-size: 1.5rem;
+		li {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+		}
+	}
+
+	.settingsTitle {
+		font-family: Quicksand;
+		color: $nord5;
+	}
+	.colourInput {
+		border: none;
+		outline: none;
+		background: none;
+		width: 50px;
+		height: 50px;
+		margin-left: 2%;
+	}
+
+	.textInput {
+		margin-left: 2%;
+		font-family: Quicksand;
+		border: none;
+		outline: none;
+		background-color: $nord3;
+		color: $nord5;
+		width: 15rem;
+		height: 2rem;
+		font-size: 1.7rem;
 	}
 </style>
