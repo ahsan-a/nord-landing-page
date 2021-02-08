@@ -39,6 +39,7 @@
 	const defaultProperties = {
 		barBg: '#434c5e',
 		barFont: 'Quicksand',
+		searchSuggestions: '4',
 	};
 	export default {
 		name: 'GoogleSearch',
@@ -96,7 +97,9 @@
 						var results = {};
 						for (
 							let i = 0;
-							data[1].length < 4 ? i < data[1].length : i < 4;
+							data[1].length < state.config.searchSuggestions
+								? i < data[1].length
+								: i < state.config.searchSuggestions;
 							i++
 						) {
 							results[i] = {

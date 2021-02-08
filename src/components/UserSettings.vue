@@ -113,7 +113,6 @@
 						/>
 					</li>
 				</ul>
-				<br />
 			</div>
 			<div class="weather">
 				<h1 class="settingsTitle">Weather</h1>
@@ -223,6 +222,17 @@
 							class="textInput"
 						/>
 					</li>
+					<li>
+						<p>Number of Search Suggestions</p>
+						<input
+							type="text"
+							v-model="
+								state.config.GoogleSearchBar.searchSuggestions
+							"
+							@change="updateLocalConfig"
+							class="numberInput"
+						/>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -322,7 +332,7 @@
 
 	.userSettings {
 		z-index: 100;
-		background-color: $nord1;
+		background-color: rgba(59, 66, 82, 0.9);
 		position: fixed;
 		width: 80vw;
 		height: 80vh;
@@ -332,6 +342,7 @@
 		margin-left: -40vw; /* Negative half of width. */
 		border-radius: 2vw;
 		box-shadow: 0.2rem 0.2rem 20px rgba(0, 0, 0, 0.205);
+
 		@media (min-width: 1400px) {
 			background-image: url('../assets/nord-colours.svg');
 			background-repeat: no-repeat;
@@ -428,6 +439,17 @@
 		background-color: $nord3;
 		color: $nord5;
 		width: 15rem;
+		height: 2rem;
+		font-size: 1.7rem;
+	}
+	.numberInput {
+		margin-left: 2%;
+		font-family: Quicksand;
+		border: none;
+		outline: none;
+		background-color: $nord3;
+		color: $nord5;
+		width: 5rem;
 		height: 2rem;
 		font-size: 1.7rem;
 	}

@@ -54,6 +54,22 @@
 			}
 			setInterval(updateStyles, 1000);
 			updateStyles(); // updates the styles from local storage
+
+			function checkIfUpdated() {
+				if (
+					localStorage.getItem('Version') !=
+					process.env.VUE_APP_VERSION
+				) {
+					alert(
+						'This page has been updated. Search suggestions will not work until you set the amount you want to show in settings. (default is 4)'
+					);
+					localStorage.setItem(
+						'Version',
+						process.env.VUE_APP_VERSION
+					);
+				}
+			}
+			checkIfUpdated();
 		},
 	};
 </script>
