@@ -2,6 +2,7 @@
 	<div
 		id="weather"
 		:style="{ backgroundColor: state.config.backgroundColour }"
+		v-if="state.config.weatherEnabled"
 	>
 		<div class="icon">
 			<img
@@ -50,6 +51,7 @@
 
 <script>
 	const defaultProperties = {
+		weatherEnabled: true,
 		backgroundColour: '#3b4252',
 		imageColour: '#88c0d0',
 		titleColour: '#88c0d0',

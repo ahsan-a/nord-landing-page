@@ -70,22 +70,10 @@
 				} else if (
 					localStorage.getItem('Version') !=
 						process.env.VUE_APP_VERSION &&
-					process.env.VUE_APP_VERSION == '1.0.1'
-				) {
-					alert(
-						'This page has been updated. Search suggestions will not work until you set the amount you want to show in settings. (default is 4)'
-					);
-					localStorage.setItem(
-						'Version',
-						process.env.VUE_APP_VERSION
-					);
-				} else if (
-					localStorage.getItem('Version') !=
-						process.env.VUE_APP_VERSION &&
 					process.env.VUE_APP_VERSION
 				) {
 					alert(
-						'NEW UPDATE: Boomarks! Open an issue if you find any bugs or unintended behaviour. You can also set your settings back to default.'
+						'New Update: Bookmarks. Also, you may need to enable search suggestions and the weather widget in settings for them to appear.'
 					);
 					localStorage.setItem(
 						'Version',

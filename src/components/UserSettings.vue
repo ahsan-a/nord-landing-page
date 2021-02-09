@@ -126,6 +126,15 @@
 				<h1 class="settingsTitle">Weather</h1>
 				<ul class="settingsModule">
 					<li>
+						<p>Enable Weather Widget</p>
+						<input
+							type="checkbox"
+							v-model="state.config.Weather.weatherEnabled"
+							@change="updateLocalConfig"
+							class="toggleInput"
+						/>
+					</li>
+					<li>
 						<p>Background Colour</p>
 						<input
 							type="color"
@@ -387,6 +396,7 @@
 						addBookmarkPlusColour: '#e5e9f0',
 					},
 					Weather: {
+						weatherEnabled: true,
 						backgroundColour: '#3b4252',
 						imageColour: '#88c0d0',
 						titleColour: '#88c0d0',
