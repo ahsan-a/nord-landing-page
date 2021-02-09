@@ -72,16 +72,9 @@
 			});
 
 			function setDefaultStyles() {
-				var googleSearchBar = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
-				);
-				for (const [type, property] of defaultPropertiesArray) {
-					googleSearchBar[type] = property;
-				}
 				localStorage.setItem(
 					'GoogleSearchBar',
-					JSON.stringify(googleSearchBar)
+					JSON.stringify(defaultProperties)
 				);
 			}
 			if (localStorage.getItem('GoogleSearchBar') == null) {
@@ -99,7 +92,7 @@
 					);
 				}
 			}
-			setInterval(updateStyles, 1000);
+			setInterval(updateStyles, 500);
 			updateStyles(); // updates the styles from local storage
 
 			function retrieveQueries() {
@@ -250,7 +243,7 @@
 		left: 50%;
 		margin-right: -50%;
 		transform: translate(-50%, 0%);
-		opacity: 0.8;
+		opacity: 0.9;
 		-webkit-transition: background-color 0.4s ease-in-out;
 		transition: background-color 0.4s ease-in-out;
 		-webkit-transition: opacity 0.4s ease-in-out;

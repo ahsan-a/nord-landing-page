@@ -93,16 +93,9 @@
 			});
 
 			function setDefaultStyles() {
-				var dateAndTime = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
-				);
-				for (const [type, property] of defaultPropertiesArray) {
-					dateAndTime[type] = property;
-				}
 				localStorage.setItem(
 					'DateAndTime',
-					JSON.stringify(dateAndTime)
+					JSON.stringify(defaultProperties)
 				);
 			}
 			if (localStorage.getItem('DateAndTime') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
@@ -117,7 +110,7 @@
 					);
 				}
 			}
-			setInterval(updateStyles, 1000);
+			setInterval(updateStyles, 500);
 			updateStyles(); // updates the styles from local storage
 
 			function updateTime() {

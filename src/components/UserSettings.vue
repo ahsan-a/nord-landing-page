@@ -61,6 +61,15 @@
 						/>
 					</li>
 					<li>
+						<p>Background Image:</p>
+						<input
+							type="text"
+							v-model="state.config.Main.backgroundImageUrl"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+					<li>
 						<p>Settings Wheel Colour:</p>
 						<input
 							type="color"
@@ -234,7 +243,7 @@
 						<p>Search Bar Text Colour</p>
 						<input
 							type="color"
-							v-model="state.config.GoogleSearchBar.searchBarText"
+							v-model="state.config.GoogleSearchBar.barBg"
 							@change="updateLocalConfig"
 							class="colourInput"
 						/>
@@ -257,42 +266,6 @@
 							"
 							@change="updateLocalConfig"
 							class="numberInput"
-						/>
-					</li>
-					<li>
-						<p>Search Suggestions Background Colour</p>
-						<input
-							type="color"
-							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsColour
-							"
-							@change="updateLocalConfig"
-							class="colourInput"
-						/>
-					</li>
-					<li>
-						<p>Search Suggestions Text Colour</p>
-						<input
-							type="color"
-							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsText
-							"
-							@change="updateLocalConfig"
-							class="colourInput"
-						/>
-					</li>
-					<li>
-						<p>Search Suggestions Font</p>
-						<input
-							type="text"
-							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsFont
-							"
-							@change="updateLocalConfig"
-							class="textInput"
 						/>
 					</li>
 				</ul>
@@ -413,7 +386,7 @@
 					);
 				}
 			}
-			setInterval(updateStyles, 1000);
+			setInterval(updateStyles, 500);
 			updateStyles(); // updates the styles from local storage
 
 			function toggleClicked() {
@@ -463,10 +436,6 @@
 						barBg: '#434c5e',
 						barFont: 'Quicksand',
 						searchSuggestions: '4',
-						searchSuggestionsColour: '#4c566a',
-						searchSuggestionsText: '#eceff4',
-						searchSuggestionsFont: 'Quicksand',
-						searchBarText: '#eceff4',
 					},
 					Main: {
 						backgroundColour: '#2e3440',

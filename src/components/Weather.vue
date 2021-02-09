@@ -80,14 +80,10 @@
 			});
 
 			function setDefaultStyles() {
-				var weather = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
+				localStorage.setItem(
+					'Weather',
+					JSON.stringify(defaultProperties)
 				);
-				for (const [type, property] of defaultPropertiesArray) {
-					weather[type] = property;
-				}
-				localStorage.setItem('Weather', JSON.stringify(weather));
 			}
 			if (localStorage.getItem('Weather') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
 
@@ -104,7 +100,7 @@
 					state.config = JSON.parse(localStorage.getItem('Weather'));
 				}
 			}
-			setInterval(updateStyles, 1000);
+			setInterval(updateStyles, 500);
 			updateStyles(); // updates the styles from local storage
 
 			function capitilise(string) {
@@ -231,6 +227,15 @@
 			order: 4;
 			align-self: center;
 			margin-top: 20px;
+		}
+	}
+
+	div #weather {
+		opacity: 0.9;
+		transition: margin-top 0.2s ease-in-out;
+		&:hover {
+			opacity: 1;
+			margin-top: -2.5vw;
 		}
 	}
 </style>

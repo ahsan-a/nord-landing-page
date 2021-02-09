@@ -1,4 +1,10 @@
 <template>
+	<img
+		:src="state.config.backgroundImageUrl"
+		alt="bg"
+		class="backgroundImage"
+		v-if="state.config.backgroundImageUrl"
+	/>
 	<div id="wrapper" class="animate__animated animate__fadeIn">
 		<weather />
 		<date-and-time />
@@ -9,15 +15,16 @@
 </template>
 
 <script>
+	import { reactive } from 'vue';
 	import DateAndTime from './components/DateAndTime.vue';
 	import GoogleSearchBar from './components/GoogleSearchBar.vue';
 	import UserSettings from './components/UserSettings.vue';
 	import Weather from './components/Weather.vue';
-	import { reactive } from 'vue';
 	import Bookmarks from './components/Bookmarks.vue';
 
 	const defaultProperties = {
 		backgroundColour: '#2e3440',
+		backgroundImageUrl: '',
 	};
 
 	export default {
@@ -32,16 +39,8 @@
 			const state = reactive({
 				config: JSON.parse(localStorage.getItem('Main')),
 			});
-
 			function setDefaultStyles() {
-				var main = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
-				);
-				for (const [type, property] of defaultPropertiesArray) {
-					main[type] = property;
-				}
-				localStorage.setItem('Main', JSON.stringify(main));
+				localStorage.setItem('Main', JSON.stringify(defaultProperties));
 			}
 			if (localStorage.getItem('Main') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
 
@@ -55,9 +54,10 @@
 				document.body.style.backgroundColor =
 					state.config.backgroundColour;
 			}
-			setInterval(updateStyles, 1000);
+			setInterval(updateStyles, 500);
 			updateStyles(); // updates the styles from local storage
 
+			// displays an alert if there has been an update
 			function checkIfUpdated() {
 				if (!localStorage.getItem('Version')) {
 					alert(
@@ -73,7 +73,7 @@
 					process.env.VUE_APP_VERSION
 				) {
 					alert(
-						'New Update: Bookmarks. Also, you may need to customise search suggestions and enable the weather widget in settings for them to appear.'
+						'New Update: Bookmarks. Also, you may need to customise search suggestions and enable the weather widget in settings for them to appear, and your background image can now be customised.'
 					);
 					localStorage.setItem(
 						'Version',
@@ -82,6 +82,7 @@
 				}
 			}
 			checkIfUpdated();
+			return { state };
 		},
 	};
 </script>
@@ -125,6 +126,7 @@
 
 	body {
 		position: relative;
+		overflow-x: hidden;
 	}
 
 	google-search-bar {
@@ -132,6 +134,19 @@
 	}
 
 	user-settings {
+		position: fixed;
+	}
+	.wrapper {
+		z-index: 1;
+	}
+
+	.backgroundImage {
+		z-index: 0;
+		width: 100vw;
+		height: 107vh;
+		object-fit: cover;
+		margin-top: -75px;
+		margin-left: -7px;
 		position: fixed;
 	}
 </style>

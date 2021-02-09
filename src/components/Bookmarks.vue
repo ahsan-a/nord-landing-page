@@ -138,14 +138,10 @@
 			let addBookmarkOn = ref(false);
 
 			function setDefaultStyles() {
-				var bookmarks = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
+				localStorage.setItem(
+					'Bookmarks',
+					JSON.stringify(defaultProperties)
 				);
-				for (const [type, property] of defaultPropertiesArray) {
-					bookmarks[type] = property;
-				}
-				localStorage.setItem('Bookmarks', JSON.stringify(bookmarks));
 			}
 			if (localStorage.getItem('Bookmarks') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
 
@@ -258,7 +254,7 @@
 		box-shadow: 0.2rem 0.2rem 5px rgba(0, 0, 0, 0.205);
 		text-align: center;
 		padding: 1vw;
-		opacity: 0.7;
+		opacity: 0.8;
 		margin-left: 2vw;
 		margin-right: 2vw;
 
@@ -266,7 +262,7 @@
 		transition: opacity 0.2s ease-in-out;
 		transition: margin-top 0.2s ease-in-out;
 
-		background-size: 7vw;
+		background-size: 6vw;
 		background-repeat: no-repeat;
 		background-position: 50% 15%;
 		&:hover {
@@ -275,8 +271,13 @@
 		}
 
 		h1 {
-			font-size: 2vw;
-			margin-top: 7vw;
+			font-size: 1.7vw;
+			margin-top: 6.3vw;
+			text-overflow: ellipsis;
+			word-wrap: break-word;
+			display: block;
+			line-height: 2.1vw; /* a */
+			max-height: 2.1vw; /* a x number of line to show (ex : 2 line)  */
 		}
 	}
 
@@ -346,7 +347,7 @@
 		margin-left: 2vw;
 		margin-right: 2vw;
 
-		opacity: 0.4;
+		opacity: 0.6;
 		position: relative;
 		transition: opacity 0.2s ease-in-out;
 		transition: margin-top 0.2s ease-in-out;
