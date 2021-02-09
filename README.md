@@ -54,15 +54,6 @@ VUE_APP_WEATHERAPIKEY=1234567890abcdef
 
 7. After you've finished editing, run `npm run build` to build your project. Your new build should be stored inside of `/dist/index.html`. Set this as your new tab page in your browser settings or using an extension such as [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna/related).
 
-## Changelog
-
--   Added user preferences after 3 painful days. (7/2/2021, 21:00 GMT)
--   Fixed search bar suggestions showing split from search bar, and lay down foundation for options UI (5/2/2021, 20:16 GMT)
-
--   Added arrow key functionality on google search bar, similar to functionality on actual google search bar (4/2/2021 2:30 GMT)
-
--   Added ability to hold down up/down arrow and prevented default behaviour on google searh box (4/2/2021, 17:38 GMT)
-
 ## Roadmap
 
 -   [x] Control search bar with arrow keys

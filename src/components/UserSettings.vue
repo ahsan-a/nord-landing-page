@@ -5,6 +5,7 @@
 			width="60"
 			height="60"
 			viewBox="0 0 24 24"
+			:style="{ fill: state.config.Settings.wheelColour }"
 		>
 			<path
 				d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
@@ -40,6 +41,13 @@
 			</li>
 		</ul>
 		<div class="userSettingsFrame">
+			<li class="resetSettings">
+				<button
+					class="resetSettingsButton"
+					@click="setSettingsToDefaults"
+					>Set To Defaults</button
+				>
+			</li>
 			<div class="general">
 				<h1 class="settingsTitle">General</h1>
 				<ul class="settingsModule">
@@ -56,7 +64,7 @@
 						<p>Settings Wheel Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.DateAndTime.dateColour"
+							v-model="state.config.Settings.wheelColour"
 							@change="updateLocalConfig"
 							class="colourInput"
 						/>
@@ -235,11 +243,116 @@
 					</li>
 				</ul>
 			</div>
+			<div class="bookmarks">
+				<h1 class="settingsTitle">Bookmarks Settings</h1>
+				<ul class="settingsModule">
+					<li>
+						<p>Show Bookmarks</p>
+						<input
+							type="checkbox"
+							v-model="state.config.Bookmarks.enabled"
+							@change="updateLocalConfig"
+							class="toggleInput"
+						/>
+					</li>
+					<li>
+						<p>Bookmark Background</p>
+						<input
+							type="color"
+							v-model="state.config.Bookmarks.bookmarkBg"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Bookmark Font</p>
+						<input
+							type="text"
+							v-model="state.config.Bookmarks.bookmarkFont"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
+					<li>
+						<p>Bookmark Text Colour</p>
+						<input
+							type="color"
+							v-model="state.config.Bookmarks.bookmarkTextColour"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Add Bookmark Background</p>
+						<input
+							type="color"
+							v-model="state.config.Bookmarks.addBookmarkBg"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Add Bookmark Plus Colour</p>
+						<input
+							type="color"
+							v-model="
+								state.config.Bookmarks.addBookmarkPlusColour
+							"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	const allDefaults = {
+		Bookmarks: {
+			bookmarkBg: '#3b4252',
+			bookmarkFont: 'Quicksand',
+			bookmarkTextColour: '#e5e9f0',
+			enabled: true,
+			addBookmarkBg: '#3b4252',
+			addBookmarkPlusColour: '#e5e9f0',
+		},
+		Weather: {
+			backgroundColour: '#3b4252',
+			imageColour: '#88c0d0',
+			titleColour: '#88c0d0',
+			tempColour: '#88c0d0',
+			unit: 'metric',
+			descColour: '#88c0d0',
+			location: 'London',
+			locationColour: '#88c0d0',
+			font: 'Quicksand',
+		},
+		DateAndTime: {
+			dateColour: '#88c0d0',
+			timeSeperator: '#88c0d0',
+			timeColour: '#d8dee9',
+			dateFont: 'Quicksand',
+			timeFont: 'Roboto Mono',
+		},
+		GoogleSearchBar: {
+			barBg: '#434c5e',
+			barFont: 'Quicksand',
+			searchSuggestions: '4',
+		},
+		Main: {
+			backgroundColour: '#2e3440',
+		},
+		Settings: {
+			wheelColour: '#88c0d0',
+		},
+	};
+
+	const defaultProperties = {
+		wheelColour: '#88c0d0',
+	};
+
 	import { reactive, ref } from 'vue';
 	export default {
 		name: 'UserSettings',
@@ -255,8 +368,36 @@
 					GoogleSearchBar: JSON.parse(
 						localStorage.getItem('GoogleSearchBar')
 					),
+					Bookmarks: JSON.parse(localStorage.getItem('Bookmarks')),
+					Settings: JSON.parse(localStorage.getItem('Settings')),
 				},
 			});
+
+			function setDefaultStyles() {
+				var settings = {};
+				const defaultPropertiesArray = Object.entries(
+					defaultProperties
+				);
+				for (const [type, property] of defaultPropertiesArray) {
+					settings[type] = property;
+				}
+				localStorage.setItem('Settings', JSON.stringify(settings));
+			}
+			if (localStorage.getItem('Settings') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
+
+			function updateStyles() {
+				if (
+					JSON.stringify(state.config.Settings) !==
+					localStorage.getItem('Settings')
+				) {
+					localStorage.setItem(
+						'Settings',
+						JSON.stringify(state.config.Settings)
+					);
+				}
+			}
+			setInterval(updateStyles, 1000);
+			updateStyles(); // updates the styles from local storage
 
 			function toggleClicked() {
 				preferencesOn.value = !preferencesOn.value;
@@ -271,11 +412,21 @@
 					);
 				});
 			}
+
+			function setSettingsToDefaults() {
+				const pushToLocalArray = Object.entries(allDefaults);
+				for (const [type, property] of pushToLocalArray) {
+					state.config[type] = property;
+					updateLocalConfig();
+				}
+			}
+
 			return {
 				state,
 				toggleClicked,
 				preferencesOn,
 				updateLocalConfig,
+				setSettingsToDefaults,
 			};
 		},
 	};
@@ -314,7 +465,6 @@
 
 		svg {
 			width: 2.5vw;
-			fill: $nord8;
 
 			transition: fill 0.3s ease-in-out;
 			-webkit-transition: fill 0.3s ease-in-out;
@@ -403,6 +553,7 @@
 			overflow-x: hidden;
 			margin-left: 3%;
 			margin-top: -1%;
+			list-style-type: none;
 		}
 	}
 
@@ -452,5 +603,27 @@
 		width: 5rem;
 		height: 2rem;
 		font-size: 1.7rem;
+	}
+
+	.toggleInput {
+		margin-left: 2%;
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.resetSettingsButton {
+		outline: none;
+		border: none;
+		background-color: $nord8;
+		color: $nord5;
+		font-family: Quicksand;
+		width: 10vw;
+		height: 2vw;
+		font-size: 1vw;
+		border-radius: 0.2vw;
+		&:hover {
+			opacity: 0.8;
+			cursor: pointer;
+		}
 	}
 </style>

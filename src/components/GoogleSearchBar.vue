@@ -269,6 +269,7 @@
 		box-sizing: border-box;
 		border-radius: 0 0 2.4rem 2.4rem;
 		margin-top: 75px;
+		z-index: 1;
 
 		left: 50%;
 		margin-right: -50%;

@@ -185,7 +185,8 @@
 		flex-wrap: wrap;
 		justify-content: flex-start;
 
-		@media (max-width: 1150px) {
+		transition: opacity 0.1s ease-in-out;
+		@media (max-width: 1300px) {
 			opacity: 0;
 		}
 		.icon {
@@ -199,7 +200,7 @@
 
 		.main {
 			margin-top: -135px;
-			margin-right: -110px;
+			margin-right: -100px;
 			font-size: 40px;
 			text-align: right;
 			order: 1;
@@ -209,7 +210,7 @@
 		.temperature {
 			font-size: 100px;
 			margin-top: 0px;
-			margin-right: -120px;
+			margin-right: -130px;
 			font-weight: 300;
 			order: 2;
 			text-align: right;
@@ -218,7 +219,7 @@
 		.description {
 			margin-top: 230px;
 			font-size: 35px;
-			margin-left: -110px;
+			margin-left: -140px;
 			order: 3;
 			text-align: left;
 			word-wrap: break-word;

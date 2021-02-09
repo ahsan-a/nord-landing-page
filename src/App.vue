@@ -4,6 +4,7 @@
 		<date-and-time />
 		<user-settings />
 		<google-search-bar />
+		<bookmarks />
 	</div>
 </template>
 
@@ -13,6 +14,7 @@
 	import UserSettings from './components/UserSettings.vue';
 	import Weather from './components/Weather.vue';
 	import { reactive } from 'vue';
+	import Bookmarks from './components/Bookmarks.vue';
 
 	const defaultProperties = {
 		backgroundColour: '#2e3440',
@@ -24,6 +26,7 @@
 			GoogleSearchBar,
 			Weather,
 			UserSettings,
+			Bookmarks,
 		},
 		setup() {
 			const state = reactive({
@@ -56,12 +59,33 @@
 			updateStyles(); // updates the styles from local storage
 
 			function checkIfUpdated() {
-				if (
+				if (!localStorage.getItem('Version')) {
+					alert(
+						'Welcome to this project! Hit the settings icon to configure.'
+					);
+					localStorage.setItem(
+						'Version',
+						process.env.VUE_APP_VERSION
+					);
+				} else if (
 					localStorage.getItem('Version') !=
-					process.env.VUE_APP_VERSION
+						process.env.VUE_APP_VERSION &&
+					process.env.VUE_APP_VERSION == '1.0.1'
 				) {
 					alert(
 						'This page has been updated. Search suggestions will not work until you set the amount you want to show in settings. (default is 4)'
+					);
+					localStorage.setItem(
+						'Version',
+						process.env.VUE_APP_VERSION
+					);
+				} else if (
+					localStorage.getItem('Version') !=
+						process.env.VUE_APP_VERSION &&
+					process.env.VUE_APP_VERSION
+				) {
+					alert(
+						'NEW UPDATE: Boomarks! Open an issue if you find any bugs or unintended behaviour. You can also set your settings back to default.'
 					);
 					localStorage.setItem(
 						'Version',
