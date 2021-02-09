@@ -289,7 +289,7 @@
 		width: 1vw;
 		height: 1vw;
 		border-radius: 5vw;
-		position: fixed;
+		position: absolute;
 		margin-left: 14vw;
 		margin-top: -0.3vw;
 		svg {
