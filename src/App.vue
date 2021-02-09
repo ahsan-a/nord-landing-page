@@ -73,7 +73,7 @@
 					process.env.VUE_APP_VERSION
 				) {
 					alert(
-						'New Update: Bookmarks. Also, you may need to enable search suggestions and the weather widget in settings for them to appear.'
+						'New Update: Bookmarks. Also, you may need to customise search suggestions and enable the weather widget in settings for them to appear.'
 					);
 					localStorage.setItem(
 						'Version',

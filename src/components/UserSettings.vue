@@ -231,6 +231,15 @@
 						/>
 					</li>
 					<li>
+						<p>Search Bar Text Colour</p>
+						<input
+							type="color"
+							v-model="state.config.GoogleSearchBar.searchBarText"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
 						<p>Search Bar Font</p>
 						<input
 							type="text"
@@ -248,6 +257,42 @@
 							"
 							@change="updateLocalConfig"
 							class="numberInput"
+						/>
+					</li>
+					<li>
+						<p>Search Suggestions Background Colour</p>
+						<input
+							type="color"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsColour
+							"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Search Suggestions Text Colour</p>
+						<input
+							type="color"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsText
+							"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Search Suggestions Font</p>
+						<input
+							type="text"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsFont
+							"
+							@change="updateLocalConfig"
+							class="textInput"
 						/>
 					</li>
 				</ul>
@@ -418,6 +463,10 @@
 						barBg: '#434c5e',
 						barFont: 'Quicksand',
 						searchSuggestions: '4',
+						searchSuggestionsColour: '#4c566a',
+						searchSuggestionsText: '#eceff4',
+						searchSuggestionsFont: 'Quicksand',
+						searchBarText: '#eceff4',
 					},
 					Main: {
 						backgroundColour: '#2e3440',

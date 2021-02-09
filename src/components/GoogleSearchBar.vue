@@ -16,18 +16,30 @@
 				:style="{
 					backgroundColor: state.config.barBg,
 					fontFamily: state.config.barFont,
+					color: state.config.searchBarText,
 				}"
 			/>
 		</form>
 
-		<ul class="searchSuggestions">
+		<ul
+			class="searchSuggestions"
+			:style="{
+				backgroundColor: state.config.searchSuggestionsColour,
+				fontFamily: state.config.searchSuggestionsFont,
+			}"
+		>
 			<li
 				ref="arrowKeys"
 				v-for="(query, index) in state.queries"
 				:key="query.query"
 				:class="{ focused: index == state.focus }"
+				@click="openPage(query.link)"
 			>
-				<a :href="query.link">{{ query.query }}</a>
+				<a
+					:href="query.link"
+					:style="{ color: state.config.searchSuggestionsText }"
+					>{{ query.query }}</a
+				>
 			</li>
 		</ul>
 	</div>
@@ -38,8 +50,12 @@
 
 	const defaultProperties = {
 		barBg: '#434c5e',
+		searchBarText: '#eceff4',
 		barFont: 'Quicksand',
 		searchSuggestions: '4',
+		searchSuggestionsColour: '#4c566a',
+		searchSuggestionsText: '#eceff4',
+		searchSuggestionsFont: 'Quicksand',
 	};
 	export default {
 		name: 'GoogleSearch',
@@ -180,12 +196,17 @@
 				}
 			}
 
+			function openPage(url) {
+				window.open(url, '_self');
+			}
+
 			return {
 				state,
 				retrieveQueries,
 				inputDown,
 				inputUp,
 				enterInput,
+				openPage,
 			};
 		},
 	};
@@ -217,7 +238,6 @@
 		border-radius: 3rem;
 		font-size: 3rem;
 		font-family: Quicksand, sans-serif;
-		color: $nord6;
 		outline: none;
 		border: none;
 		box-shadow: none;
@@ -249,7 +269,6 @@
 
 	.enabled {
 		border-radius: 2.4rem 2.4rem 0 0 !important;
-		background-color: $nord3;
 		box-shadow: 0 0 0 !important;
 	}
 
@@ -262,9 +281,7 @@
 		text-align: left;
 		list-style-type: none;
 		font-family: Quicksand;
-		color: #fff;
 		font-size: 2vw;
-		background-color: $nord3;
 		width: 50%;
 		box-sizing: border-box;
 		border-radius: 0 0 2.4rem 2.4rem;
@@ -280,11 +297,11 @@
 			margin-right: 4vw;
 			margin-bottom: 0.4vw;
 			padding: 0.1vw;
+			cursor: pointer;
 
 			&:not(.focused) {
-				background-color: $nord3;
 				&:hover {
-					background-color: $nord2;
+					background-color: rgba($color: #000000, $alpha: 0.1);
 				}
 			}
 		}
@@ -292,10 +309,9 @@
 
 	a {
 		text-decoration: none;
-		color: white;
 	}
 
 	.focused {
-		background-color: $nord2;
+		background-color: rgba($color: #000000, $alpha: 0.1);
 	}
 </style>
