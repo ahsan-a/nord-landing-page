@@ -309,46 +309,6 @@
 </template>
 
 <script>
-	const allDefaults = {
-		Bookmarks: {
-			bookmarkBg: '#3b4252',
-			bookmarkFont: 'Quicksand',
-			bookmarkTextColour: '#e5e9f0',
-			enabled: true,
-			addBookmarkBg: '#3b4252',
-			addBookmarkPlusColour: '#e5e9f0',
-		},
-		Weather: {
-			backgroundColour: '#3b4252',
-			imageColour: '#88c0d0',
-			titleColour: '#88c0d0',
-			tempColour: '#88c0d0',
-			unit: 'metric',
-			descColour: '#88c0d0',
-			location: 'London',
-			locationColour: '#88c0d0',
-			font: 'Quicksand',
-		},
-		DateAndTime: {
-			dateColour: '#88c0d0',
-			timeSeperator: '#88c0d0',
-			timeColour: '#d8dee9',
-			dateFont: 'Quicksand',
-			timeFont: 'Roboto Mono',
-		},
-		GoogleSearchBar: {
-			barBg: '#434c5e',
-			barFont: 'Quicksand',
-			searchSuggestions: '4',
-		},
-		Main: {
-			backgroundColour: '#2e3440',
-		},
-		Settings: {
-			wheelColour: '#88c0d0',
-		},
-	};
-
 	const defaultProperties = {
 		wheelColour: '#88c0d0',
 	};
@@ -369,26 +329,29 @@
 						localStorage.getItem('GoogleSearchBar')
 					),
 					Bookmarks: JSON.parse(localStorage.getItem('Bookmarks')),
-					Settings: JSON.parse(localStorage.getItem('Settings')),
+					Settings:
+						localStorage.getItem('Settings') == null ||
+						localStorage.getItem('Settings') == 'null'
+							? defaultProperties
+							: JSON.parse(localStorage.getItem('Settings')),
 				},
 			});
 
 			function setDefaultStyles() {
-				var settings = {};
-				const defaultPropertiesArray = Object.entries(
-					defaultProperties
+				localStorage.setItem(
+					'Settings',
+					JSON.stringify(defaultProperties)
 				);
-				for (const [type, property] of defaultPropertiesArray) {
-					settings[type] = property;
-				}
-				localStorage.setItem('Settings', JSON.stringify(settings));
 			}
-			if (localStorage.getItem('Settings') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
+			if (
+				localStorage.getItem('Settings') == null ||
+				localStorage.getItem('Settings') == 'null'
+			)
+				setDefaultStyles(); // sets styles to default if they aren't in localstorage
 
 			function updateStyles() {
 				if (
-					JSON.stringify(state.config.Settings) !==
-					localStorage.getItem('Settings')
+					localStorage.getItem('Settings') !== state.config.Settings
 				) {
 					localStorage.setItem(
 						'Settings',
@@ -414,8 +377,48 @@
 			}
 
 			function setSettingsToDefaults() {
+				const allDefaults = {
+					Bookmarks: {
+						bookmarkBg: '#3b4252',
+						bookmarkFont: 'Quicksand',
+						bookmarkTextColour: '#e5e9f0',
+						enabled: true,
+						addBookmarkBg: '#3b4252',
+						addBookmarkPlusColour: '#e5e9f0',
+					},
+					Weather: {
+						backgroundColour: '#3b4252',
+						imageColour: '#88c0d0',
+						titleColour: '#88c0d0',
+						tempColour: '#88c0d0',
+						unit: 'metric',
+						descColour: '#88c0d0',
+						location: 'London',
+						locationColour: '#88c0d0',
+						font: 'Quicksand',
+					},
+					DateAndTime: {
+						dateColour: '#88c0d0',
+						timeSeperator: '#88c0d0',
+						timeColour: '#d8dee9',
+						dateFont: 'Quicksand',
+						timeFont: 'Roboto Mono',
+					},
+					GoogleSearchBar: {
+						barBg: '#434c5e',
+						barFont: 'Quicksand',
+						searchSuggestions: '4',
+					},
+					Main: {
+						backgroundColour: '#2e3440',
+					},
+					Settings: {
+						wheelColour: '#88c0d0',
+					},
+				};
 				const pushToLocalArray = Object.entries(allDefaults);
-				for (const [type, property] of pushToLocalArray) {
+
+				for (var [type, property] of pushToLocalArray) {
 					state.config[type] = property;
 					updateLocalConfig();
 				}
@@ -472,7 +475,7 @@
 			-webkit-transition: transform 0.3s ease-in-out;
 
 			&:hover {
-				fill: $nord9;
+				fill: $nord9 !important;
 				cursor: pointer;
 				transform: rotate(90deg);
 				-webkit-transform: rotate(90deg);
