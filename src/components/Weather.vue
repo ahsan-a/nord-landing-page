@@ -182,8 +182,6 @@
 		margin-left: 1vw;
 		display: flex;
 		flex-direction: column;
-		flex-wrap: wrap;
-		justify-content: flex-start;
 
 		transition: opacity 0.1s ease-in-out;
 		@media (max-width: 1300px) {
@@ -191,48 +189,46 @@
 		}
 		.icon {
 			img {
-				width: 100px;
-				margin-left: 10px;
-				margin-top: 50px;
-				order: 0;
+				width: 110px;
 			}
+			order: 0;
+			margin-top: 50px;
+			margin-left: 10px;
 		}
 
 		.main {
-			margin-top: -135px;
-			margin-right: -100px;
 			font-size: 40px;
-			text-align: right;
 			order: 1;
+			align-self: flex-end;
+			margin-top: -135px;
 			text-align: right;
+			word-wrap: break-word;
+			max-width: 175px;
+			margin-right: 20px;
 		}
 
 		.temperature {
-			font-size: 100px;
-			margin-top: 0px;
-			margin-right: -130px;
 			font-weight: 300;
 			order: 2;
-			text-align: right;
+			align-self: flex-end;
+			font-size: 100px;
+			margin-top: -20px;
+			margin-right: 20px;
 		}
 
 		.description {
-			margin-top: 230px;
-			font-size: 35px;
-			margin-left: -140px;
 			order: 3;
-			text-align: left;
-			word-wrap: break-word;
-			max-width: 200px;
+			word-wrap: normal;
+			max-width: 1px;
+			margin-top: -70px;
+			margin-left: 10px;
+			font-size: 35px;
 		}
 
 		.location {
-			margin-top: 370px;
-			font-size: 15px;
-			text-align: center;
-			float: center;
 			order: 4;
-			margin-left: -275px;
+			align-self: center;
+			margin-top: 20px;
 		}
 	}
 </style>
