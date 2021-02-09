@@ -453,7 +453,7 @@
 					outline: none;
 					background-color: $nord3;
 					color: $nord5;
-					width: 700px;
+					width: 775px;
 					height: 40px;
 					font-size: 1.7rem;
 				}
