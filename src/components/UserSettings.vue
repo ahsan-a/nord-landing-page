@@ -434,8 +434,12 @@
 					},
 					GoogleSearchBar: {
 						barBg: '#434c5e',
+						searchBarText: '#eceff4',
 						barFont: 'Quicksand',
 						searchSuggestions: '4',
+						searchSuggestionsColour: '#4c566a',
+						searchSuggestionsText: '#eceff4',
+						searchSuggestionsFont: 'Quicksand',
 					},
 					Main: {
 						backgroundColour: '#2e3440',
