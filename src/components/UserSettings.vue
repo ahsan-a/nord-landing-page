@@ -5,7 +5,7 @@
 			width="60"
 			height="60"
 			viewBox="0 0 24 24"
-			:style="{ fill: state.config.Settings.wheelColour }"
+			:style="{ fill: config.Settings.wheelColour }"
 		>
 			<path
 				d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
@@ -40,6 +40,7 @@
 				</button>
 			</li>
 		</ul>
+		<!--Would higly recommend minimising div below unless you want to work on it. Basically just divs with different inputs, v-modelled to an item in config. Also updates local storage on input. -->
 		<div class="userSettingsFrame">
 			<li class="resetSettings">
 				<button
@@ -55,8 +56,8 @@
 						<p>Background Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.Main.backgroundColour"
-							@change="updateLocalConfig"
+							v-model="config.Main.backgroundColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -64,8 +65,8 @@
 						<p>Background Image:</p>
 						<input
 							type="text"
-							v-model="state.config.Main.backgroundImageUrl"
-							@change="updateLocalConfig"
+							v-model="config.Main.backgroundImageUrl"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -73,8 +74,8 @@
 						<p>Settings Wheel Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.Settings.wheelColour"
-							@change="updateLocalConfig"
+							v-model="config.Settings.wheelColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -88,8 +89,8 @@
 						<p>Date Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.DateAndTime.dateColour"
-							@change="updateLocalConfig"
+							v-model="config.DateAndTime.dateColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -97,8 +98,8 @@
 						<p>Date Font:</p>
 						<input
 							type="text"
-							v-model="state.config.DateAndTime.dateFont"
-							@change="updateLocalConfig"
+							v-model="config.DateAndTime.dateFont"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -106,8 +107,8 @@
 						<p>Time Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.DateAndTime.timeColour"
-							@change="updateLocalConfig"
+							v-model="config.DateAndTime.timeColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -115,8 +116,8 @@
 						<p>Time Font:</p>
 						<input
 							type="text"
-							v-model="state.config.DateAndTime.timeFont"
-							@change="updateLocalConfig"
+							v-model="config.DateAndTime.timeFont"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -124,8 +125,8 @@
 						<p>Time Seperator Colour:</p>
 						<input
 							type="color"
-							v-model="state.config.DateAndTime.timeSeperator"
-							@change="updateLocalConfig"
+							v-model="config.DateAndTime.timeSeperator"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -138,8 +139,8 @@
 						<p>Enable Weather Widget</p>
 						<input
 							type="checkbox"
-							v-model="state.config.Weather.weatherEnabled"
-							@change="updateLocalConfig"
+							v-model="config.Weather.weatherEnabled"
+							@change="updateLocalStorage"
 							class="toggleInput"
 						/>
 					</li>
@@ -147,8 +148,8 @@
 						<p>Background Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.backgroundColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.backgroundColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -156,8 +157,8 @@
 						<p>Weather Icon Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.imageColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.imageColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -165,8 +166,8 @@
 						<p>Weather Title Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.titleColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.titleColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -174,8 +175,8 @@
 						<p>Temperature Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.tempColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.tempColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -183,8 +184,8 @@
 						<p>Metric/Imperial</p>
 						<input
 							type="text"
-							v-model="state.config.Weather.unit"
-							@change="updateLocalConfig"
+							v-model="config.Weather.unit"
+							@change="updateLocalStorage"
 							class="textInput"
 							placeholder="may need refresh"
 						/>
@@ -193,8 +194,8 @@
 						<p>Weather Description Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.descColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.descColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -202,8 +203,8 @@
 						<p>Location</p>
 						<input
 							type="text"
-							v-model="state.config.Weather.location"
-							@change="updateLocalConfig"
+							v-model="config.Weather.location"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -211,8 +212,8 @@
 						<p>Location Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Weather.locationColour"
-							@change="updateLocalConfig"
+							v-model="config.Weather.locationColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -220,8 +221,8 @@
 						<p>Font</p>
 						<input
 							type="text"
-							v-model="state.config.Weather.font"
-							@change="updateLocalConfig"
+							v-model="config.Weather.font"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -234,8 +235,8 @@
 						<p>Search Bar Background</p>
 						<input
 							type="color"
-							v-model="state.config.GoogleSearchBar.barBg"
-							@change="updateLocalConfig"
+							v-model="config.GoogleSearchBar.barBg"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -243,8 +244,8 @@
 						<p>Search Bar Text Colour</p>
 						<input
 							type="color"
-							v-model="state.config.GoogleSearchBar.barBg"
-							@change="updateLocalConfig"
+							v-model="config.GoogleSearchBar.searchBarText"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -252,8 +253,8 @@
 						<p>Search Bar Font</p>
 						<input
 							type="text"
-							v-model="state.config.GoogleSearchBar.barFont"
-							@change="updateLocalConfig"
+							v-model="config.GoogleSearchBar.barFont"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -261,10 +262,8 @@
 						<p>Number of Search Suggestions</p>
 						<input
 							type="text"
-							v-model="
-								state.config.GoogleSearchBar.searchSuggestions
-							"
-							@change="updateLocalConfig"
+							v-model="config.GoogleSearchBar.searchSuggestions"
+							@change="updateLocalStorage"
 							class="numberInput"
 						/>
 					</li>
@@ -273,10 +272,9 @@
 						<input
 							type="color"
 							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsColour
+								config.GoogleSearchBar.searchSuggestionsColour
 							"
-							@change="updateLocalConfig"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -285,10 +283,9 @@
 						<input
 							type="color"
 							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsText
+								config.GoogleSearchBar.searchSuggestionsText
 							"
-							@change="updateLocalConfig"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -297,10 +294,9 @@
 						<input
 							type="text"
 							v-model="
-								state.config.GoogleSearchBar
-									.searchSuggestionsFont
+								config.GoogleSearchBar.searchSuggestionsFont
 							"
-							@change="updateLocalConfig"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -313,8 +309,8 @@
 						<p>Show Bookmarks</p>
 						<input
 							type="checkbox"
-							v-model="state.config.Bookmarks.enabled"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.enabled"
+							@change="updateLocalStorage"
 							class="toggleInput"
 						/>
 					</li>
@@ -322,8 +318,8 @@
 						<p>Bookmark Background</p>
 						<input
 							type="color"
-							v-model="state.config.Bookmarks.bookmarkBg"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.bookmarkBg"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -331,8 +327,8 @@
 						<p>Bookmark Font</p>
 						<input
 							type="text"
-							v-model="state.config.Bookmarks.bookmarkFont"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.bookmarkFont"
+							@change="updateLocalStorage"
 							class="textInput"
 						/>
 					</li>
@@ -340,8 +336,8 @@
 						<p>Bookmark Text Colour</p>
 						<input
 							type="color"
-							v-model="state.config.Bookmarks.bookmarkTextColour"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.bookmarkTextColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -349,8 +345,8 @@
 						<p>Add Bookmark Background</p>
 						<input
 							type="color"
-							v-model="state.config.Bookmarks.addBookmarkBg"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.addBookmarkBg"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -358,10 +354,8 @@
 						<p>Add Bookmark Plus Colour</p>
 						<input
 							type="color"
-							v-model="
-								state.config.Bookmarks.addBookmarkPlusColour
-							"
-							@change="updateLocalConfig"
+							v-model="config.Bookmarks.addBookmarkPlusColour"
+							@change="updateLocalStorage"
 							class="colourInput"
 						/>
 					</li>
@@ -372,132 +366,35 @@
 </template>
 
 <script>
-	const defaultProperties = {
-		wheelColour: '#88c0d0',
-	};
-
-	import { reactive, ref } from 'vue';
+	import { ref } from 'vue';
+	import useConfig from '../modules/config';
 	export default {
 		name: 'UserSettings',
 		setup() {
+			const { config, defaults, updateLocalStorage } = useConfig();
+
 			let preferencesOn = ref(false);
-			const state = reactive({
-				config: {
-					DateAndTime: JSON.parse(
-						localStorage.getItem('DateAndTime')
-					),
-					Weather: JSON.parse(localStorage.getItem('Weather')),
-					Main: JSON.parse(localStorage.getItem('Main')),
-					GoogleSearchBar: JSON.parse(
-						localStorage.getItem('GoogleSearchBar')
-					),
-					Bookmarks: JSON.parse(localStorage.getItem('Bookmarks')),
-					Settings:
-						localStorage.getItem('Settings') == null ||
-						localStorage.getItem('Settings') == 'null'
-							? defaultProperties
-							: JSON.parse(localStorage.getItem('Settings')),
-				},
-			});
-
-			function setDefaultStyles() {
-				localStorage.setItem(
-					'Settings',
-					JSON.stringify(defaultProperties)
-				);
-			}
-			if (
-				localStorage.getItem('Settings') == null ||
-				localStorage.getItem('Settings') == 'null'
-			)
-				setDefaultStyles(); // sets styles to default if they aren't in localstorage
-
-			function updateStyles() {
-				if (
-					localStorage.getItem('Settings') !== state.config.Settings
-				) {
-					localStorage.setItem(
-						'Settings',
-						JSON.stringify(state.config.Settings)
-					);
-				}
-			}
-			setInterval(updateStyles, 500);
-			updateStyles(); // updates the styles from local storage
 
 			function toggleClicked() {
-				preferencesOn.value = !preferencesOn.value;
-			}
-
-			function updateLocalConfig() {
-				var keys = Object.keys(state.config);
-				keys.forEach((element) => {
-					localStorage.setItem(
-						element,
-						JSON.stringify(state.config[element])
-					);
-				});
+				preferencesOn.value = !preferencesOn.value; // Toggle the preferences menu.
 			}
 
 			function setSettingsToDefaults() {
-				const allDefaults = {
-					Bookmarks: {
-						bookmarkBg: '#3b4252',
-						bookmarkFont: 'Quicksand',
-						bookmarkTextColour: '#e5e9f0',
-						enabled: true,
-						addBookmarkBg: '#3b4252',
-						addBookmarkPlusColour: '#e5e9f0',
-					},
-					Weather: {
-						weatherEnabled: true,
-						backgroundColour: '#3b4252',
-						imageColour: '#88c0d0',
-						titleColour: '#88c0d0',
-						tempColour: '#88c0d0',
-						unit: 'metric',
-						descColour: '#88c0d0',
-						location: 'London',
-						locationColour: '#88c0d0',
-						font: 'Quicksand',
-					},
-					DateAndTime: {
-						dateColour: '#88c0d0',
-						timeSeperator: '#88c0d0',
-						timeColour: '#d8dee9',
-						dateFont: 'Quicksand',
-						timeFont: 'Roboto Mono',
-					},
-					GoogleSearchBar: {
-						barBg: '#434c5e',
-						searchBarText: '#eceff4',
-						barFont: 'Quicksand',
-						searchSuggestions: '4',
-						searchSuggestionsColour: '#4c566a',
-						searchSuggestionsText: '#eceff4',
-						searchSuggestionsFont: 'Quicksand',
-					},
-					Main: {
-						backgroundColour: '#2e3440',
-					},
-					Settings: {
-						wheelColour: '#88c0d0',
-					},
-				};
-				const pushToLocalArray = Object.entries(allDefaults);
-
-				for (var [type, property] of pushToLocalArray) {
-					state.config[type] = property;
-					updateLocalConfig();
+				// Updates the local storage and config state with the default values, taking the default values from config.js.
+				for (var [type, property] of Object.entries(
+					JSON.parse(JSON.stringify(defaults))
+				)) {
+					config[type] = property;
+					updateLocalStorage();
 				}
 			}
 
 			return {
-				state,
 				toggleClicked,
 				preferencesOn,
-				updateLocalConfig,
+				updateLocalStorage,
 				setSettingsToDefaults,
+				config,
 			};
 		},
 	};

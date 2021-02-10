@@ -1,10 +1,15 @@
 <template>
+	<div
+		class="backgroundColour"
+		:style="{ backgroundColor: config.Main.backgroundColour }"
+	></div>
+	<!--Allows us to dynamically set a background colour -->
 	<img
-		:src="state.config.backgroundImageUrl"
-		alt="bg"
-		class="backgroundImage"
-		v-if="state.config.backgroundImageUrl"
+		v-if="config.Main.backgroundImageUrl"
+		:src="config.Main.backgroundImageUrl"
+		class="backgroundImage animate__animated animate__fadeIn"
 	/>
+	<!--Allows us to dynamically set a background image -->
 	<div id="wrapper" class="animate__animated animate__fadeIn">
 		<weather />
 		<date-and-time />
@@ -15,17 +20,12 @@
 </template>
 
 <script>
-	import { reactive } from 'vue';
 	import DateAndTime from './components/DateAndTime.vue';
 	import GoogleSearchBar from './components/GoogleSearchBar.vue';
 	import UserSettings from './components/UserSettings.vue';
 	import Weather from './components/Weather.vue';
 	import Bookmarks from './components/Bookmarks.vue';
-
-	const defaultProperties = {
-		backgroundColour: '#2e3440',
-		backgroundImageUrl: '',
-	};
+	import useConfig from './modules/config';
 
 	export default {
 		components: {
@@ -36,53 +36,9 @@
 			Bookmarks,
 		},
 		setup() {
-			const state = reactive({
-				config: JSON.parse(localStorage.getItem('Main')),
-			});
-			function setDefaultStyles() {
-				localStorage.setItem('Main', JSON.stringify(defaultProperties));
-			}
-			if (localStorage.getItem('Main') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
+			const { config } = useConfig();
 
-			function updateStyles() {
-				if (
-					JSON.stringify(state.config) !==
-					localStorage.getItem('Main')
-				) {
-					state.config = JSON.parse(localStorage.getItem('Main'));
-				}
-				document.body.style.backgroundColor =
-					state.config.backgroundColour;
-			}
-			setInterval(updateStyles, 500);
-			updateStyles(); // updates the styles from local storage
-
-			// displays an alert if there has been an update
-			function checkIfUpdated() {
-				if (!localStorage.getItem('Version')) {
-					alert(
-						'Welcome to this project! Hit the settings icon to configure.'
-					);
-					localStorage.setItem(
-						'Version',
-						process.env.VUE_APP_VERSION
-					);
-				} else if (
-					localStorage.getItem('Version') !=
-						process.env.VUE_APP_VERSION &&
-					process.env.VUE_APP_VERSION
-				) {
-					alert(
-						'You may need to customise search suggestions and enable the weather widget in settings for them to appear. \n Changes: Added customisagblility on search suggestions (added before, forgot to add to user settings)'
-					);
-					localStorage.setItem(
-						'Version',
-						process.env.VUE_APP_VERSION
-					);
-				}
-			}
-			checkIfUpdated();
-			return { state };
+			return { config };
 		},
 	};
 </script>
@@ -137,16 +93,26 @@
 		position: fixed;
 	}
 	.wrapper {
-		z-index: 1;
+		z-index: 5;
 	}
 
 	.backgroundImage {
 		z-index: 0;
-		width: 100vw;
+		width: 101vw;
 		height: 107vh;
 		object-fit: cover;
-		margin-top: -75px;
-		margin-left: -7px;
+		margin-top: -80px;
+		margin-left: -10px;
+		position: fixed;
+	}
+
+	.backgroundColour {
+		z-index: 0;
+		width: 101vw;
+		height: 107vh;
+		object-fit: cover;
+		margin-top: -80px;
+		margin-left: -10px;
 		position: fixed;
 	}
 </style>

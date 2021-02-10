@@ -3,37 +3,43 @@
 		<h1
 			class="date"
 			:style="{
-				color: state.config.dateColour,
-				fontFamily: state.config.dateFont,
+				color: config.DateAndTime.dateColour,
+				fontFamily: config.DateAndTime.dateFont,
 			}"
 		>
+			<!--current date-->
 			{{ state.date.date }}, {{ state.date.day }} {{ state.date.month }}
 		</h1>
 		<ul class="time">
+			<!-- Current Time -->
 			<li
 				:style="{
-					color: state.config.timeColour,
-					fontFamily: state.config.timeFont,
+					color: config.DateAndTime.timeColour,
+					fontFamily: config.DateAndTime.timeFont,
 				}"
 				>{{ state.time.hour }}</li
 			>
-			<li class="seperator" :style="{ color: state.config.timeSeperator }"
+			<li
+				class="seperator"
+				:style="{ color: config.DateAndTime.timeSeperator }"
 				>:</li
 			>
 			<li
 				:style="{
-					color: state.config.timeColour,
-					fontFamily: state.config.timeFont,
+					color: config.DateAndTime.timeColour,
+					fontFamily: config.DateAndTime.timeFont,
 				}"
 				>{{ state.time.minute }}</li
 			>
-			<li class="seperator" :style="{ color: state.config.timeSeperator }"
+			<li
+				class="seperator"
+				:style="{ color: config.DateAndTime.timeSeperator }"
 				>:</li
 			>
 			<li
 				:style="{
-					color: state.config.timeColour,
-					fontFamily: state.config.timeFont,
+					color: config.DateAndTime.timeColour,
+					fontFamily: config.DateAndTime.timeFont,
 				}"
 				>{{ state.time.second }}</li
 			>
@@ -67,17 +73,13 @@
 		'Saturday',
 	]; // getDate and getMonth returns an index. We need these arrays to get an actual day/month
 
-	const defaultProperties = {
-		dateColour: '#88c0d0',
-		timeSeperator: '#88c0d0',
-		timeColour: '#d8dee9',
-		dateFont: 'Quicksand',
-		timeFont: 'Roboto Mono',
-	};
+	import useConfig from '../modules/config';
 
 	export default {
 		name: 'DateAndTime',
 		setup() {
+			const { config } = useConfig();
+
 			const state = reactive({
 				time: {
 					hour: '',
@@ -89,29 +91,7 @@
 					day: '',
 					month: '',
 				}, // This writes all of the data we need to to a reactive object
-				config: JSON.parse(localStorage.getItem('DateAndTime')), // get config from local storage
 			});
-
-			function setDefaultStyles() {
-				localStorage.setItem(
-					'DateAndTime',
-					JSON.stringify(defaultProperties)
-				);
-			}
-			if (localStorage.getItem('DateAndTime') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
-
-			function updateStyles() {
-				if (
-					JSON.stringify(state.config) !==
-					localStorage.getItem('DateAndTime')
-				) {
-					state.config = JSON.parse(
-						localStorage.getItem('DateAndTime')
-					);
-				}
-			}
-			setInterval(updateStyles, 500);
-			updateStyles(); // updates the styles from local storage
 
 			function updateTime() {
 				var cd = new Date();
@@ -136,6 +116,7 @@
 
 			return {
 				state,
+				config,
 			};
 		},
 	};

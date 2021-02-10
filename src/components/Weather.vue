@@ -1,47 +1,47 @@
 <template>
 	<div
 		id="weather"
-		:style="{ backgroundColor: state.config.backgroundColour }"
-		v-if="state.config.weatherEnabled"
+		:style="{ backgroundColor: config.Weather.backgroundColour }"
+		v-if="config.Weather.weatherEnabled"
 	>
 		<div class="icon">
 			<img
 				:src="state.weatherOutput.icon"
 				alt="image to show weather"
 				:style="{
-					filter: toFilter(state.config.imageColour),
+					filter: toFilter(config.Weather.imageColour),
 				}"
 			/>
 		</div>
 		<h2
 			class="main"
 			:style="{
-				color: state.config.titleColour,
-				fontFamily: state.config.font,
+				color: config.Weather.titleColour,
+				fontFamily: config.Weather.font,
 			}"
 			>{{ state.weatherOutput.main }}</h2
 		>
 		<h2
 			class="temperature"
 			:style="{
-				color: state.config.tempColour,
-				fontFamily: state.config.font,
+				color: config.Weather.tempColour,
+				fontFamily: config.Weather.font,
 			}"
 			>{{ state.weatherOutput.temp }}°</h2
 		>
 		<p
 			class="description"
 			:style="{
-				color: state.config.descColour,
-				fontFamily: state.config.font,
+				color: config.Weather.descColour,
+				fontFamily: config.Weather.font,
 			}"
 			>{{ state.weatherOutput.description }}</p
 		>
 		<p
 			class="location"
 			:style="{
-				color: state.config.locationColour,
-				fontFamily: state.config.font,
+				color: config.Weather.locationColour,
+				fontFamily: config.Weather.font,
 			}"
 		>
 			{{ state.weatherOutput.city }}, {{ state.weatherOutput.country }}
@@ -50,23 +50,14 @@
 </template>
 
 <script>
-	const defaultProperties = {
-		weatherEnabled: true,
-		backgroundColour: '#3b4252',
-		imageColour: '#88c0d0',
-		titleColour: '#88c0d0',
-		tempColour: '#88c0d0',
-		unit: 'metric',
-		descColour: '#88c0d0',
-		location: 'London',
-		locationColour: '#88c0d0',
-		font: 'Quicksand',
-	};
 	import { reactive } from 'vue';
 	import { hexToCSSFilter } from 'hex-to-css-filter';
+	import useConfig from '../modules/config';
 	export default {
 		name: 'Weather',
 		setup() {
+			const { config } = useConfig();
+
 			const state = reactive({
 				weatherOutput: {
 					city: '',
@@ -76,32 +67,12 @@
 					description: '',
 					icon: '',
 				}, //all of the data we need.
-				config: JSON.parse(localStorage.getItem('Weather')),
 			});
-
-			function setDefaultStyles() {
-				localStorage.setItem(
-					'Weather',
-					JSON.stringify(defaultProperties)
-				);
-			}
-			if (localStorage.getItem('Weather') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
 
 			function toFilter(hex) {
 				var output = hexToCSSFilter(hex);
 				return output['filter'].replace(/;/g, '');
 			}
-
-			function updateStyles() {
-				if (
-					JSON.stringify(state.config) !==
-					localStorage.getItem('Weather')
-				) {
-					state.config = JSON.parse(localStorage.getItem('Weather'));
-				}
-			}
-			setInterval(updateStyles, 500);
-			updateStyles(); // updates the styles from local storage
 
 			function capitilise(string) {
 				//capitalises the first letter of every word of a sentence.
@@ -113,9 +84,9 @@
 			function updateWeather() {
 				fetch(
 					`https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(
-						state.config.location
+						config.Weather.location
 					)}&appid=${process.env.VUE_APP_WEATHERAPIKEY}&units=${
-						state.config.unit
+						config.Weather.unit
 					}`
 				) //fetches the weather from the openweathermap api.
 					.then((res) => res.json())
@@ -146,6 +117,7 @@
 			return {
 				state,
 				toFilter,
+				config,
 			};
 		},
 	};

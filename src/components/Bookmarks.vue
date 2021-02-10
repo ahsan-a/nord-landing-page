@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper" v-if="state.config.enabled">
+	<div class="wrapper" v-if="config.Bookmarks.enabled">
 		<ul class="bookmarksList">
 			<li
 				v-for="(bookmark, index) in state.bookmarks"
@@ -12,7 +12,7 @@
 						backgroundImage: `url(
 								https://api.faviconkit.com/${stripUrl(bookmark.URL)}/512
 							)`,
-						backgroundColor: state.config.bookmarkBg,
+						backgroundColor: config.Bookmarks.bookmarkBg,
 					}"
 				>
 					<button
@@ -38,8 +38,8 @@
 					<div class="clickableLink" @click="openPage(bookmark.URL)"
 						><h1
 							:style="{
-								color: state.config.bookmarkTextColour,
-								fontFamily: state.config.bookmarkFont,
+								color: config.Bookmarks.bookmarkTextColour,
+								fontFamily: config.Bookmarks.bookmarkFont,
 							}"
 							>{{ bookmark.name }}</h1
 						></div
@@ -53,8 +53,8 @@
 						class="addBookmark"
 						@click="addBookmarkOn = !addBookmarkOn"
 						:style="{
-							backgroundColor: state.config.addBookmarkBg,
-							color: state.config.addBookmarkPlusColour,
+							backgroundColor: config.Bookmarks.addBookmarkBg,
+							color: config.Bookmarks.addBookmarkPlusColour,
 						}"
 						><h1>+</h1></div
 					>
@@ -114,21 +114,13 @@
 </template>
 
 <script>
-	const defaultProperties = {
-		bookmarkBg: '#3b4252',
-		bookmarkFont: 'Quicksand',
-		bookmarkTextColour: '#e5e9f0',
-		enabled: true,
-		addBookmarkBg: '#3b4252',
-		addBookmarkPlusColour: '#e5e9f0',
-	};
-
 	import { reactive, ref } from 'vue';
+	import useConfig from '../modules/config';
 	export default {
 		setup() {
+			const { config } = useConfig();
 			const state = reactive({
 				bookmarks: JSON.parse(localStorage.getItem('BookmarkList')),
-				config: JSON.parse(localStorage.getItem('Bookmarks')),
 				newBookmark: {
 					name: '',
 					URL: '',
@@ -136,38 +128,6 @@
 			});
 
 			let addBookmarkOn = ref(false);
-
-			function setDefaultStyles() {
-				localStorage.setItem(
-					'Bookmarks',
-					JSON.stringify(defaultProperties)
-				);
-			}
-			if (localStorage.getItem('Bookmarks') == null) setDefaultStyles(); // sets styles to default if they aren't in localstorage
-
-			function updateStyles() {
-				if (
-					JSON.stringify(state.config) !==
-					localStorage.getItem('Bookmarks')
-				) {
-					state.config = JSON.parse(
-						localStorage.getItem('Bookmarks')
-					);
-				}
-
-				if (
-					JSON.stringify(
-						state.bookmarks != localStorage.getItem('BookmarkList')
-					)
-				) {
-					localStorage.setItem(
-						'BookmarkList',
-						JSON.stringify(state.bookmarks)
-					);
-				}
-			}
-			setInterval(updateStyles, 1000);
-			updateStyles(); // updates the styles from local storage
 
 			function stripUrl(url) {
 				return typeof url == 'undefined'
@@ -188,6 +148,10 @@
 				state.newBookmark.name = '';
 				state.newBookmark.URL = '';
 				addBookmarkOn.value = !addBookmarkOn.value;
+				localStorage.setItem(
+					'BookmarkList',
+					JSON.stringify(state.bookmarks)
+				);
 			}
 
 			function openPage(url) {
@@ -196,7 +160,10 @@
 
 			function deleteBookmark(index) {
 				delete state.bookmarks[index];
-				updateStyles();
+				localStorage.setItem(
+					'BookmarkList',
+					JSON.stringify(state.bookmarks)
+				);
 			}
 
 			return {
@@ -206,6 +173,7 @@
 				addBookmarkOn,
 				openPage,
 				deleteBookmark,
+				config,
 			};
 		},
 	};

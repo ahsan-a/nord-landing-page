@@ -14,9 +14,9 @@
 				@keydown.enter="enterInput"
 				ref="input"
 				:style="{
-					backgroundColor: state.config.barBg,
-					fontFamily: state.config.barFont,
-					color: state.config.searchBarText,
+					backgroundColor: config.GoogleSearchBar.barBg,
+					fontFamily: config.GoogleSearchBar.barFont,
+					color: config.GoogleSearchBar.searchBarText,
 				}"
 			/>
 		</form>
@@ -24,8 +24,8 @@
 		<ul
 			class="searchSuggestions"
 			:style="{
-				backgroundColor: state.config.searchSuggestionsColour,
-				fontFamily: state.config.searchSuggestionsFont,
+				backgroundColor: config.GoogleSearchBar.searchSuggestionsColour,
+				fontFamily: config.GoogleSearchBar.searchSuggestionsFont,
 			}"
 		>
 			<li
@@ -37,7 +37,9 @@
 			>
 				<a
 					:href="query.link"
-					:style="{ color: state.config.searchSuggestionsText }"
+					:style="{
+						color: config.GoogleSearchBar.searchSuggestionsText,
+					}"
 					>{{ query.query }}</a
 				>
 			</li>
@@ -47,19 +49,12 @@
 
 <script>
 	import { reactive } from 'vue';
-
-	const defaultProperties = {
-		barBg: '#434c5e',
-		searchBarText: '#eceff4',
-		barFont: 'Quicksand',
-		searchSuggestions: '4',
-		searchSuggestionsColour: '#4c566a',
-		searchSuggestionsText: '#eceff4',
-		searchSuggestionsFont: 'Quicksand',
-	};
+	import useConfig from '../modules/config';
 	export default {
 		name: 'GoogleSearch',
 		setup() {
+			const { config } = useConfig();
+
 			window.onload = () => {
 				document.getElementById('googleSearchBar').focus();
 			};
@@ -68,36 +63,16 @@
 				enabled: false,
 				focus: null,
 				queries: {},
-				config: JSON.parse(localStorage.getItem('GoogleSearchBar')),
 			});
 
-			function setDefaultStyles() {
-				localStorage.setItem(
-					'GoogleSearchBar',
-					JSON.stringify(defaultProperties)
-				);
-			}
-			if (localStorage.getItem('GoogleSearchBar') == null) {
-				setDefaultStyles(); // sets styles to default if they aren't in localstorage
-				location.reload();
-			}
-
-			function updateStyles() {
-				if (
-					JSON.stringify(state.config) !==
-					localStorage.getItem('GoogleSearchBar')
-				) {
-					state.config = JSON.parse(
-						localStorage.getItem('GoogleSearchBar')
-					);
-				}
-			}
-			setInterval(updateStyles, 500);
-			updateStyles(); // updates the styles from local storage
+			function openPage(url) {
+				window.open(url, '_self');
+			} // Just a useful function that allows us to open a page in the same tab.
 
 			function retrieveQueries() {
-				state.focus = null;
+				state.focus = null; // state.focus is teh current value we're focused on with out arrows.
 				fetch(
+					//fetches from google suggestqueries api and uses corsanywhere to remove CORS, it's a hach
 					`https://corsanywhere.herokuapp.com/http://suggestqueries.google.com/complete/search?client=chrome&q=${state.searchText}`
 				)
 					.then((res) => res.json())
@@ -106,9 +81,10 @@
 						var results = {};
 						for (
 							let i = 0;
-							data[1].length < state.config.searchSuggestions
+							data[1].length <
+							config.GoogleSearchBar.searchSuggestions
 								? i < data[1].length
-								: i < state.config.searchSuggestions;
+								: i < config.GoogleSearchBar.searchSuggestions; //adds the set amount of search results to state.queries
 							i++
 						) {
 							results[i] = {
@@ -120,7 +96,7 @@
 										? data[1][i]
 										: 'https://www.google.co.uk/search?q=' +
 										  encodeURI(data[1][i]),
-							};
+							}; // creates a link. If the query is a website link, the link is that link. If it is a query the link is a google link.
 						}
 
 						state.enabled = !!state.searchText.replace(/\s/g, '')
@@ -133,7 +109,7 @@
 			}
 
 			function changeTextbox() {
-				state.searchText = state.queries[state.focus].query;
+				state.searchText = state.queries[state.focus].query; // Changes the value of the search text depending on our arrow key input.
 			}
 
 			function inputDown() {
@@ -156,7 +132,7 @@
 					state.focus = 0;
 					changeTextbox();
 				}
-			}
+			} // Logic to decide which search suggestion is currently being focused on down arrow key.
 
 			function inputUp() {
 				if (!state.searchText.replace(/\s/g, '').length) {
@@ -172,7 +148,7 @@
 					state.focus = Object.keys(state.queries).length - 1;
 					changeTextbox();
 				}
-			}
+			} // Logic to decide which search suggestion is currently being focused on up arrow key.
 
 			function enterInput() {
 				if (state.focus == null) {
@@ -185,13 +161,9 @@
 						return;
 					}
 				} else {
-					window.open(state.queries[state.focus].link, '_self');
+					openPage(state.queries[state.focus].link);
 				}
-			}
-
-			function openPage(url) {
-				window.open(url, '_self');
-			}
+			} // Functionality to hit enter to open a link
 
 			return {
 				state,
@@ -200,6 +172,7 @@
 				inputUp,
 				enterInput,
 				openPage,
+				config,
 			};
 		},
 	};
@@ -279,7 +252,7 @@
 		width: 50%;
 		box-sizing: border-box;
 		border-radius: 0 0 2.4rem 2.4rem;
-		margin-top: 75px;
+		margin-top: 71px;
 		z-index: 1;
 		opacity: 0.95;
 
