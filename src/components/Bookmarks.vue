@@ -267,7 +267,6 @@
 		background-position: 50% 15%;
 		&:hover {
 			margin-top: 1vw;
-			opacity: 1;
 		}
 
 		h1 {
