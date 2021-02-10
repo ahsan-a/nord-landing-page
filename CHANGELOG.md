@@ -1,5 +1,10 @@
 # Changelog
 
+## 10/2/2021
+
+-   Fixed the weather widget showing on hover while it is hidden when the screen is too small.
+-   Fixed bookmarks not being centred.
+
 ## 9/2/2021
 
 -   Added bookmarks and a bookmarks system.

@@ -226,17 +226,16 @@
 			align-self: center;
 			margin-top: 20px;
 		}
-	}
-
-	div #weather {
 		opacity: 0.9;
 		transition: margin-top 0.2s ease-in-out;
 		@media (max-width: 1300px) {
 			opacity: 0;
 		}
-		&:hover {
-			opacity: 1;
-			margin-top: -2.5vw;
+		@media (min-width: 1300px) {
+			&:hover {
+				opacity: 1;
+				margin-top: -2.5vw;
+			}
 		}
 	}
 </style>

@@ -237,7 +237,7 @@
 		margin-top: 19vw;
 		flex-direction: flex-start;
 		@media (max-width: 960px) {
-			margin-top: 25vw;
+			margin-top: 28vw;
 		}
 	}
 
@@ -321,9 +321,11 @@
 	}
 
 	.wrapper {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		position: absolute;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, 0%);
+		margin-top: -10vw;
 		width: 90%;
 	}
 
