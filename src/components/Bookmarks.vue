@@ -327,6 +327,7 @@
 		transform: translate(-50%, 0%);
 		margin-top: -10vw;
 		width: 90%;
+		z-index: 1;
 	}
 
 	.addBookmarkButton {
@@ -341,7 +342,7 @@
 		flex-direction: column;
 		width: 15vw;
 		height: 9vw;
-		border-radius: 30px;
+		border-radius: 2vw;
 		box-shadow: 0.2rem 0.2rem 5px rgba(0, 0, 0, 0.205);
 		text-align: center;
 		padding: 1vw;

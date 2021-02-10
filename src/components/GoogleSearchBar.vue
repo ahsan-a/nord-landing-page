@@ -268,6 +268,7 @@
 	.searchWrapper {
 		position: relative;
 		margin-top: -6vw;
+		z-index: 10;
 	}
 	.searchSuggestions {
 		position: absolute;
