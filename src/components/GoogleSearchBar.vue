@@ -252,7 +252,7 @@
 
 		&:focus {
 			background-color: $nord3;
-			opacity: 1;
+			opacity: 0.95;
 		}
 
 		&::placeholder {
@@ -281,6 +281,7 @@
 		border-radius: 0 0 2.4rem 2.4rem;
 		margin-top: 75px;
 		z-index: 1;
+		opacity: 0.95;
 
 		left: 50%;
 		margin-right: -50%;
