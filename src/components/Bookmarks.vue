@@ -352,7 +352,6 @@
 
 		opacity: 0.6;
 		position: relative;
-		transition: opacity 0.2s ease-in-out;
 		transition: margin-top 0.2s ease-in-out;
 
 		background-size: 7vw;
@@ -360,7 +359,6 @@
 		background-position: 50% 15%;
 		&:hover {
 			margin-top: 1vw;
-			opacity: 0.8;
 		}
 
 		h1 {
