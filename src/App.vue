@@ -73,7 +73,7 @@
 					process.env.VUE_APP_VERSION
 				) {
 					alert(
-						'You may need to customise search suggestions and enable the weather widget in settings for them to appear.'
+						'You may need to customise search suggestions and enable the weather widget in settings for them to appear. \n Changes: Added customisagblility on search suggestions (added before, forgot to add to user settings)'
 					);
 					localStorage.setItem(
 						'Version',

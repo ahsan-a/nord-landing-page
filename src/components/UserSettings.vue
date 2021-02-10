@@ -268,6 +268,42 @@
 							class="numberInput"
 						/>
 					</li>
+					<li>
+						<p>Search Suggestions Background</p>
+						<input
+							type="color"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsColour
+							"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Search Suggestions Text Colour</p>
+						<input
+							type="color"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsText
+							"
+							@change="updateLocalConfig"
+							class="colourInput"
+						/>
+					</li>
+					<li>
+						<p>Search Suggestions Font</p>
+						<input
+							type="text"
+							v-model="
+								state.config.GoogleSearchBar
+									.searchSuggestionsFont
+							"
+							@change="updateLocalConfig"
+							class="textInput"
+						/>
+					</li>
 				</ul>
 			</div>
 			<div class="bookmarks">
