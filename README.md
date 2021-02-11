@@ -58,7 +58,7 @@ VUE_APP_WEATHERAPIKEY=1234567890abcdef
 
 -   [x] Control search bar with arrow keys
 -   [x] Add user preferences
--   [ ] Add bookmarks and a quick acess page
+-   [x] Add bookmarks
 -   [ ] Maybe add frequently used/recently visited
 
 ## Contact
