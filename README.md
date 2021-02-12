@@ -1,7 +1,9 @@
+![Feature rich settings](github-assets/tabLogo.png)
+
 # Nord Landing Page
 
+## Showcase   
 ![New Tab page with search suggestions](github-assets/1.png)
-
 ![Feature rich settings](github-assets/2.png)
 ![New tab page](github-assets/3.png)
 
